@@ -1,24 +1,34 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { DossierEntity } from "./dossier.entity";
 import { Dossier } from "./dossier.model";
+
+import { Repository } from 'typeorm';
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class DossierService {
+
+    constructor(
+        @InjectRepository(DossierEntity)
+         private dossierRepository : Repository<DossierEntity>,
+         ) {};
+
     private dossiers : Dossier[] = [];
-    inserDossier( title:string, description:string ){
-        const docId = `${new Date().getUTCFullYear()}-${Math.random()*1000}`;
-        const newDoc = new Dossier(docId,title,description);
-        this.dossiers.push(newDoc);
-        return docId;
+
+    async inserDossier( title:string, description:string ){
+        const newDoc = await this.dossierRepository.create({title,description});
+        this.dossierRepository.save(newDoc);       
+        return newDoc;
     }
 
-    getAllDossierss(){
-        return [...this.dossiers];
+    async getDocs(){
+        return await this.dossierRepository.find();
     }
 
-    getOneDossier(id:string){
-        if (!this.dossiers.find(d => d.id === id)) {
-            throw new NotFoundException();
-        }
-        return this.dossiers.find(d => d.id === id);
+    async getOneDossier(id:number){
+        // if (!this.dossiers.find(d => d.id === id)) {
+        //     throw new NotFoundException();
+        // }
+        return await this.dossierRepository.findOne({where:{id}});
     }
 }

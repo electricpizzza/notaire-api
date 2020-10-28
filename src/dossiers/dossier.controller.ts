@@ -13,12 +13,12 @@ export class DossierController {
 
     @Get()
     getDossiers(){
-        const allDocs = this.dossierServeice.getAllDossierss();
+        const allDocs = this.dossierServeice.getDocs();
         return allDocs;
     }
 
     @Get(':id')
-    getOneDoc(@Param('id') docId :string){
+    getOneDoc(@Param('id') docId :number){
         const dossier = this.dossierServeice.getOneDossier(docId)
         return dossier;
     }

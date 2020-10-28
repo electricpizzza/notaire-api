@@ -1,0 +1,11 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 8889,
+    "username": "root",
+    "password": "root",
+    "database": "notaireTest",
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "logging": true,
+    "synchronize": true
+  }
