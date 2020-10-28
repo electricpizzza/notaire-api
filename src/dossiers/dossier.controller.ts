@@ -7,7 +7,6 @@ export class DossierController {
     constructor(private readonly dossierServeice : DossierService) {};
     @Post()
     addDossier(@Body('title') docTitle: string, @Body('description') docDescription: string){
-        console.log(docTitle, docDescription);
          const insertedDocId = this.dossierServeice.inserDossier(docTitle,docDescription);
          return { id : insertedDocId};
     } 
