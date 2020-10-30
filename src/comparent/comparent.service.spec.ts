@@ -8,7 +8,6 @@ describe('ComparentService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [ComparentService],
     }).compile();
-
     service = module.get<ComparentService>(ComparentService);
   });
 

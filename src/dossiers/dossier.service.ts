@@ -17,7 +17,9 @@ export class DossierService {
 
     async inserDossier( title:string, description:string ){
         const newDoc = await this.dossierRepository.create({title,description});
-        this.dossierRepository.save(newDoc);       
+        this.dossierRepository.save(newDoc);
+        console.log(newDoc);
+           
         return newDoc;
     }
 
