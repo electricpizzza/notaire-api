@@ -1,0 +1,26 @@
+Notaire DB : 
+
+Dossier (#id, nature, libelle, date ouverture, date de fermeture, Bien, Comparant, notaire,
+        Documents,Enregistrement/action )
+Model ( )
+
+
+Comparant (#id, type, nom, prenom, nom_ar, prenom_ar,pere_nom, mere_nom, pere_nom_ar, mere_nom_ar,
+        situation, comp_nom, comp_nom_ar, fonction, nationalite, address, telephone, email, date de naissance
+        tutelle, type piece Id, piece Id ,ID_valable)
+
+Document ( #id, type, libele, path, ajouter par)
+
+Enregistrement (#id, date, Recue, Annexe )
+
+Recu/Versement (#id, date de creation, type de versement, cheque, virm, espece, Mantant, document)
+
+Annexe (#id, Type, timbre)
+
+
+
+
+Bien(#id, libelle, type, description, address, ville, Superficie,
+     nb_piece, etage, Immeuble,                //appartement
+      type de terrain, ancfcc,                //terrain
+     valeur )

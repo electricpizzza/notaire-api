@@ -15,8 +15,8 @@ export class DossierService {
 
     private dossiers : Dossier[] = [];
 
-    async inserDossier( title:string, description:string ){
-        const newDoc = await this.dossierRepository.create({title,description});
+    async inserDossier( dossier: Dossier ){
+        const newDoc = await this.dossierRepository.create(dossier);
         this.dossierRepository.save(newDoc);
         console.log(newDoc);
            
@@ -28,9 +28,27 @@ export class DossierService {
     }
 
     async getOneDossier(id:number){
-        // if (!this.dossiers.find(d => d.id === id)) {
-        //     throw new NotFoundException();
-        // }
-        return await this.dossierRepository.findOne({where:{id}});
+        const dossier = await this.dossierRepository.findOne({where:{id}});
+        if (!dossier) {
+            throw new NotFoundException("Dossier Introuvable");
+        }
+        return dossier;
+    }
+
+    async updateDossier(id:number, title:string, description:string) {
+        const dossier = await this.dossierRepository.findOne({where:{id}});
+        if (!dossier) {
+            throw new NotFoundException("Dossier Introuvable");
+            
+        }
+        dossier.title = title;
+        dossier.description = description;
+        this.dossierRepository.save(dossier);
+
+        return dossier;
+    }
+
+    async deletDossier(id:number) {
+        this.dossierRepository.delete(id)
     }
 }
