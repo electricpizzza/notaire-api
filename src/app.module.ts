@@ -9,6 +9,9 @@ import { ModelService } from './model/model.service';
 import { ModelModule } from './model/model.module';
 import { BienModule } from './bien/bien.module';
 import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,9 +20,11 @@ import { UserController } from './user/user.controller';
     ComparentModule,
     ActeModule,
     ModelModule,
-    BienModule
+    BienModule,
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController, UserController],
-  providers: [AppService, ModelService],
+  providers: [AppService, ModelService, UserService],
 })
 export class AppModule {}

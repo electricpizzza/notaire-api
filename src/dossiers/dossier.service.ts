@@ -13,8 +13,6 @@ export class DossierService {
          private dossierRepository : Repository<DossierEntity>,
          ) {};
 
-    private dossiers : Dossier[] = [];
-
     async inserDossier( dossier: Dossier ){
         const newDoc = await this.dossierRepository.create(dossier);
         this.dossierRepository.save(newDoc);

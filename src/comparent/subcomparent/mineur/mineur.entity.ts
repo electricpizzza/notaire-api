@@ -17,7 +17,7 @@ export class MineurEntity{
     @OneToOne(() => PersonPhysiqiueEntity)
     @JoinColumn()
     tutelle: PersonPhysiqiueEntity;
-
+ 
 
     @Column("text") nomFr: string;
     @Column("text") nomAr: string;

@@ -15,16 +15,16 @@ export class ComparentEntity{
     @JoinTable()
     actes: ActeEntity;
 
-    @OneToOne(() => PersonPhysiqiueEntity)
-    @JoinColumn()
-    person : PersonPhysiqiueEntity;
+    // @OneToOne(() => PersonPhysiqiueEntity)
+    // @JoinColumn()
+    // person : PersonPhysiqiueEntity;
 
 
-    @OneToOne(() => EntrepriseCom)
-    @JoinColumn()
-    entreprise : EntrepriseCom;
+    // @OneToOne(() => EntrepriseCom)
+    // @JoinColumn()
+    // entreprise : EntrepriseCom;
 
-    @OneToOne(() => MineurEntity)
-    @JoinColumn()
-    mineur : MineurEntity;
+    // @OneToOne(() => MineurEntity)
+    // @JoinColumn()
+    // mineur : MineurEntity;
 }

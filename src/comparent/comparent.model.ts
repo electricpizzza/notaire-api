@@ -1,6 +1,6 @@
 export class Comparent {
     constructor(
         public id:number,
-        public type:Text,
+        public type:string,
         ) {};
 }
