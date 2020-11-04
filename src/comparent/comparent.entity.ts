@@ -6,10 +6,12 @@ import { PersonPhysiqiueEntity } from "./subcomparent/person-phisique/person-phi
 
 
 @Entity()
-export class ComparentEntity{
+export class ComparentEntity {
 
-    @PrimaryGeneratedColumn('increment')public id: number;
-    @Column("text") type:string;
+    @PrimaryGeneratedColumn('increment') public id: number;
+    @Column("text") type: string;
+    @Column("text") nom: string;
+    @Column("date") dateAjout: Date;
 
     @ManyToMany(() => ActeEntity)
     @JoinTable()

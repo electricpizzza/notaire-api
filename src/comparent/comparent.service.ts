@@ -22,76 +22,95 @@ export class ComparentService {
         private personRepository: Repository<PersonPhysiqiueEntity>,
         @InjectRepository(MineurEntity)
         private mineurRepository: Repository<MineurEntity>,
-    ){};
-    
-        async getAllComparent(){
-            const comparents =  await this.comparentRepository.find();
-            return comparents;
+    ) { };
+
+    async getAllComparent() {
+        const comparents = await this.comparentRepository.find();
+        return comparents;
+    }
+
+    async getOneComparent(id: number) {
+        const comparent = await this.comparentRepository.find({ where: { id } });
+        if (!comparent) {
+            throw new NotFoundException("Comarent Not Found");
+        }
+        let comparentInfo;
+        comparent[0].type === 'pp' ?
+            comparentInfo = await this.personRepository.find({ where: { comparent: comparent[0].id } }) : []
+        comparent[0].type === 'entreprise' ?
+            comparentInfo = await this.entrepriseRepository.find({ where: { comparent: comparent[0].id } }) : [];
+        comparent[0].type === 'mineur' ?
+            comparentInfo = await this.mineurRepository.find({ where: { comparent: comparent[0].id } }) : [];
+
+        return { comparent, comparentInfo };
+    }
+
+    async createComparent(compa: Comparent, person?: PersonPhisique, entreprise?: Entreprise, mineur?: Mineur) {
+
+        const newComp = await this.comparentRepository.insert(compa);
+        // let newDetail;
+        // if (newComp[0].type === 'pp') {
+        //     person.comparent = newComp;
+        //     newDetail = this.personRepository.create(person);
+        // }
+        // if (newComp[0].type === 'entreprise') {
+        //     entreprise.comparent = newComp;
+        //     newDetail = this.entrepriseRepository.create(entreprise);
+        // }
+        // if (newComp[0].type === 'mineur') {
+        //     mineur.comparent = newComp;
+        //     newDetail = this.mineurRepository.create(mineur);
+        // }
+        return newComp;
+    }
+
+    async updateComparent(id: number, compa: Comparent, person?: PersonPhisique, entreprise?: Entreprise, mineur?: Mineur) {
+        const comparent = this.comparentRepository.find({ where: { id } });
+
+        if (!comparent) {
+            throw new NotFoundException("Comarent Not Found");
         }
 
-        async getOneComparent(id: number){
-            const comparent = await this.comparentRepository.find({where:{id}});
-            if (!comparent) {
-                throw new NotFoundException("Comarent Not Found");
+        return comparent;
+    }
+
+    async deleteComparent(id: number) {
+        const comparent = this.comparentRepository.find({ where: { id } });
+
+        if (!comparent) {
+            if (comparent[0].type === 'pp') {
+                this.personRepository.delete(id);
             }
-            let comparentInfo;
-            comparent[0].type === 'pp'? 
-                comparentInfo = await this.personRepository.find({where:{comparent:comparent[0].id}}):[]
-            comparent[0].type === 'entreprise'?
-                comparentInfo =  await this.entrepriseRepository.find({where:{comparent:comparent[0].id}}):[];
-            comparent[0].type === 'mineur'? 
-                comparentInfo = await this.mineurRepository.find({where:{comparent:comparent[0].id}}):[];
-            
-            return {comparent, comparentInfo};
-        }
-
-        async createComparent(compa:Comparent, person?: PersonPhisique, entreprise?: Entreprise, mineur?:Mineur){
-
-            const newComp = this.comparentRepository.create(compa);
-            let newDetail;
-            if (newComp[0].type === 'pp') {
-                person.comparent = newComp;
-                newDetail = this.personRepository.create(person);
+            if (comparent[0].type === 'entreprise') {
+                this.entrepriseRepository.delete(id);
             }
-            if (newComp[0].type === 'entreprise') {
-                entreprise.comparent = newComp;
-                newDetail = this.entrepriseRepository.create(entreprise);
+            if (comparent[0].type === 'mineur') {
+                this.mineurRepository.delete(id);
             }
-            if (newComp[0].type === 'mineur') {
-                mineur.comparent = newComp;
-                newDetail = this.mineurRepository.create(mineur);
-            }
-            return {newComp, newDetail};
-        }
+            this.comparentRepository.delete(id)
+        } else throw new NotFoundException("Comarent Not Found");
 
-        async updateComparent(id:number, compa:Comparent, person?: PersonPhisique, entreprise?: Entreprise, mineur?:Mineur){
-            const comparent = this.comparentRepository.find({where:{id}});
+        return comparent;
+    }
 
-            if (!comparent) {
-                throw new NotFoundException("Comarent Not Found");
-            }
+    async createEntreprise(comp, entreprise, representant) {
+        const newComp = this.getOneComparent(comp);
+        const represent = this.getOneComparent(representant);
+        entreprise.representant = represent;
+        entreprise.comparent = newComp;
+        console.log(entreprise);
+        return await this.entrepriseRepository.insert({
+            comparent: comp,
+            representant: representant,
+            raisonSociale: entreprise.raisonSociale,
+            ice: entreprise.ice,
+            rc: entreprise.rc,
+            If: '123456',
+            cnss: entreprise.cnss,
+            Adresse: entreprise.Adresse
 
-            return comparent;
-        }
+        });
+    }
 
-        async deleteComparent(id:number){
-            const comparent = this.comparentRepository.find({where:{id}});
 
-            if (!comparent) {
-                if (comparent[0].type === 'pp') {
-                    this.personRepository.delete(id);
-                }
-                if (comparent[0].type === 'entreprise') {
-                    this.entrepriseRepository.delete(id);
-                }
-                if (comparent[0].type === 'mineur') {
-                    this.mineurRepository.delete(id);
-                }
-                this.comparentRepository.delete(id)
-            } else throw new NotFoundException("Comarent Not Found");
-
-            return comparent;
-        }
-
-        
 }
