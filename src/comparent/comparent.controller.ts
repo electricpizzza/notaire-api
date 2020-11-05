@@ -20,21 +20,6 @@ export class ComparentController {
         @Body('nom') nom: string,
     ) {
         const comparent = new Comparent(0, type, nom, new Date());
-        // if (type === 'pp') {
-        //     const person = new PersonPhisique(null, nomAr, nomFr, prenomAr, prenomFr, nationalite, fonction, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable);
-        //     this.comparentService.createComparent(comparent, person);
-        // }
-        // if (type === 'entreprise') {
-        //     const repres = PersonPhisique.apply(this.comparentService.getOneComparent(representant));
-        //     const entreprise = new Entreprise(null, repres, raisonSociale, ice, rc, If, cnss, Adresse);
-        //     this.comparentService.createComparent(comparent, null, entreprise);
-        // }
-        // if (type === 'mineur') {
-        //     const tutel = PersonPhisique.apply(this.comparentService.getOneComparent(tutelle));
-        //     const mineur = new Mineur(null, tutel, nomAr, nomFr, prenomAr, prenomFr, nationalite, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, typeIdentification, Identification, IdentificationValable)
-        //     this.comparentService.createComparent(null, null, null, mineur);
-        // }
-
         return this.comparentService.createComparent(comparent);
     }
 
@@ -72,10 +57,10 @@ export class ComparentController {
         @Body('typeIdentification') typeIdentification: string,
         @Body('Identification') Identification: string,
         @Body('IdentificationValable') IdentificationValable: Date,
-        @Body('comparent') comparent: number,
+        @Body('comparent') comparent: Comparent,
 
     ) {
-        const person = new PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, fonction, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable);
+        const person = new PersonPhisique(comparent.id, nomFr, nomAr, prenomFr, prenomAr, nationalite, fonction, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable);
 
         return this.comparentService.createPersonne(person);
     }
