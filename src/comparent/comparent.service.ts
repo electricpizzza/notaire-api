@@ -35,11 +35,11 @@ export class ComparentService {
             throw new NotFoundException("Comarent Not Found");
         }
         let comparentInfo;
-        comparent[0].type === 'pp' ?
+        comparent[0].type === 'PP' ?
             comparentInfo = await this.personRepository.find({ where: { comparent: comparent[0].id } }) : []
-        comparent[0].type === 'entreprise' ?
+        comparent[0].type === 'PM' ?
             comparentInfo = await this.entrepriseRepository.find({ where: { comparent: comparent[0].id } }) : [];
-        comparent[0].type === 'mineur' ?
+        comparent[0].type === 'PPM' ?
             comparentInfo = await this.mineurRepository.find({ where: { comparent: comparent[0].id } }) : [];
 
         return { comparent, comparentInfo };
@@ -93,24 +93,18 @@ export class ComparentService {
         return comparent;
     }
 
-    async createEntreprise(comp, entreprise, representant) {
-        const newComp = this.getOneComparent(comp);
-        const represent = this.getOneComparent(representant);
-        entreprise.representant = represent;
-        entreprise.comparent = newComp;
-        console.log(entreprise);
-        return await this.entrepriseRepository.insert({
-            comparent: comp,
-            representant: representant,
-            raisonSociale: entreprise.raisonSociale,
-            ice: entreprise.ice,
-            rc: entreprise.rc,
-            If: '123456',
-            cnss: entreprise.cnss,
-            Adresse: entreprise.Adresse
+    async createEntreprise(entreprise) {
 
-        });
+        return await this.entrepriseRepository.insert(entreprise);
+
     }
 
+    async createPersonne(personne) {
+        return await this.personRepository.insert(personne);
+    }
+
+    async createMineur(mineur) {
+        return await this.mineurRepository.insert(mineur);
+    }
 
 }

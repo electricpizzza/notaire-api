@@ -18,28 +18,6 @@ export class ComparentController {
     creatComparent(
         @Body('type') type: string,
         @Body('nom') nom: string,
-
-
-
-        @Body('nomFr') nomFr?: string,
-        @Body('nomAr') nomAr?: string,
-        @Body('prenomFr') prenomFr?: string,
-        @Body('prenomAr') prenomAr?: string,
-        @Body('nationalite') nationalite?: string,
-        @Body('fonction') fonction?: string,
-        @Body('nomPereFr') nomPereFr?: string,
-        @Body('nomPereAr') nomPereAr?: string,
-        @Body('nomMereFr') nomMereFr?: string,
-        @Body('nomMereAr') nomMereAr?: string,
-        @Body('situation') situation?: string,
-        @Body('dateNaissance') dateNaissance?: Date,
-        @Body('nomCompanionFr') nomCompanionFr?: string,
-        @Body('nomCompanionAr') nomCompanionAr?: string,
-        @Body('typeIdentification') typeIdentification?: string,
-        @Body('Identification') Identification?: string,
-        @Body('IdentificationValable') IdentificationValable?: Date,
-
-        @Body('tutelle') tutelle?: number,
     ) {
         const comparent = new Comparent(0, type, nom, new Date());
         // if (type === 'pp') {
@@ -65,15 +43,63 @@ export class ComparentController {
         @Body('raisonSociale') raisonSociale: string,
         @Body('ice') ice: string,
         @Body('rc') rc: string,
-        @Body('If') If: string,
         @Body('cnss') cnss: number,
         @Body('Adresse') Adresse: string,
-        @Body('representant') representant: number,
+        @Body('representant') representant: number[],
         @Body('comparent') comparent: number,
     ) {
-        const entre = new Entreprise(null, null, raisonSociale, ice, rc, If, cnss, Adresse)
+        const entre = new Entreprise(comparent, representant, raisonSociale, ice, rc, cnss, Adresse)
 
-        return this.comparentService.createEntreprise(comparent, entre, representant);
+        return this.comparentService.createEntreprise(entre);
+    }
+
+    @Post('/person')
+    createPerson(
+        @Body('nomFr') nomFr: string,
+        @Body('nomAr') nomAr: string,
+        @Body('prenomFr') prenomFr: string,
+        @Body('prenomAr') prenomAr: string,
+        @Body('nationalite') nationalite: string,
+        @Body('fonction') fonction: string,
+        @Body('nomPereFr') nomPereFr: string,
+        @Body('nomPereAr') nomPereAr: string,
+        @Body('nomMereFr') nomMereFr: string,
+        @Body('nomMereAr') nomMereAr: string,
+        @Body('situation') situation: string,
+        @Body('dateNaissance') dateNaissance: Date,
+        @Body('nomCompanionFr') nomCompanionFr: string,
+        @Body('nomCompanionAr') nomCompanionAr: string,
+        @Body('typeIdentification') typeIdentification: string,
+        @Body('Identification') Identification: string,
+        @Body('IdentificationValable') IdentificationValable: Date,
+        @Body('comparent') comparent: number,
+
+    ) {
+        const person = new PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, fonction, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable);
+
+        return this.comparentService.createPersonne(person);
+    }
+
+    @Post('/mineur')
+    createMineur(
+        @Body('nomFr') nomFr: string,
+        @Body('nomAr') nomAr: string,
+        @Body('prenomFr') prenomFr: string,
+        @Body('prenomAr') prenomAr: string,
+        @Body('nationalite') nationalite: string,
+        @Body('nomPereFr') nomPereFr: string,
+        @Body('nomPereAr') nomPereAr: string,
+        @Body('nomMereFr') nomMereFr: string,
+        @Body('nomMereAr') nomMereAr: string,
+        @Body('dateNaissance') dateNaissance: Date,
+        @Body('typeIdentification') typeIdentification: string,
+        @Body('Identification') Identification: string,
+        @Body('IdentificationValable') IdentificationValable: Date,
+        @Body('comparent') comparent: number,
+        @Body('tutelle') tutelle: number,
+    ) {
+        const mineur = new Mineur(comparent, tutelle, nomFr, nomAr, prenomFr, prenomAr, nationalite, nomPereFr, nomPereAr, nomMereFr, nomMereAr, dateNaissance, typeIdentification, Identification, IdentificationValable);
+        return this.comparentService.createMineur(mineur);
     }
 
     @Get(':id')

@@ -16,7 +16,6 @@ export class EntrepriseCom{
     @Column('text') raisonSociale: string;
     @Column('text') ice: string;
     @Column('text') rc: string;
-    @Column('text') if: string;
     @Column('int') cnss: number;
     @Column('text') Adresse: string;
 

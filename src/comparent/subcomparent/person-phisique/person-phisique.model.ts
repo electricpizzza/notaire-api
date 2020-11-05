@@ -1,8 +1,8 @@
 import { Comparent } from "src/comparent/comparent.model";
 
-export class PersonPhisique{
+export class PersonPhisique {
     constructor(
-        public comparent: Comparent,
+        public comparent: number,
 
         public nomFr: string,
         public nomAr: string,
@@ -10,7 +10,7 @@ export class PersonPhisique{
         public prenomAr: string,
         public nationalite: string,
         public fonction: string,
-        
+
         public nomPereFr: string,
         public nomPereAr: string,
         public nomMereFr: string,
@@ -24,5 +24,5 @@ export class PersonPhisique{
         public typeIdentification: string,
         public Identification: string,
         public IdentificationValable: Date,
-    ){};
+    ) { };
 }
