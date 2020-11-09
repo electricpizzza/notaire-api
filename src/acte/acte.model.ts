@@ -12,5 +12,5 @@ export class Acte {
 
         public model: Model,
         public bines: Bien[],
-    ) {};
+    ) { };
 }
