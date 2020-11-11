@@ -21,7 +21,8 @@ export class ModelController {
         @Body('boilerPlate') boilerPlate: any,
         @Body('champs') champs: any,
     ) {
-        const model = new Model(null, language, redacteur, libelle, type, champs, dateRedaction, boilerPlate);
+        const model = new Model(null, language, redacteur, libelle, type, champs, dateRedaction, " ");
+        // return model;
         return this.modelService.createModel(model);
     }
 

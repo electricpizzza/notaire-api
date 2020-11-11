@@ -26,7 +26,7 @@ export class ActeController {
         @Body('model') model: any,
         @Body('bien') bien: any[]
     ) {
-        const acte = new Acte(null, libelle, redacteur, contenu, dateRedaction, fichier, model, bien)
+        const acte = new Acte(null, libelle, redacteur, contenu, dateRedaction, fichier, model, bien);
         return this.acteService.createActe(acte)
     }
 }
