@@ -2,9 +2,9 @@ import { ActeEntity } from "src/acte/acte.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class BienEntity{
+export class BienEntity {
 
-    @PrimaryGeneratedColumn('increment') id:number;
+    @PrimaryGeneratedColumn('increment') id: number;
     @Column('text') libelle: string;
     @Column('text') type: string;
     @Column('text') description: string;
@@ -17,8 +17,4 @@ export class BienEntity{
     @Column('text') terrainType: string;
     @Column('text') ancfcc: string;
     @Column('real') valeur: number;
-    
-
-    @OneToMany(() => ActeEntity, actes => actes.bein)
-    actes: ActeEntity[];
 }

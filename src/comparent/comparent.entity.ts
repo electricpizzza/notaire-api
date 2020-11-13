@@ -12,21 +12,4 @@ export class ComparentEntity {
     @Column("text") type: string;
     @Column("text") nom: string;
     @Column("date") dateAjout: Date;
-
-    @ManyToMany(() => ActeEntity)
-    @JoinTable()
-    actes: ActeEntity;
-
-    // @OneToOne(() => PersonPhysiqiueEntity)
-    // @JoinColumn()
-    // person : PersonPhysiqiueEntity;
-
-
-    // @OneToOne(() => EntrepriseCom)
-    // @JoinColumn()
-    // entreprise : EntrepriseCom;
-
-    // @OneToOne(() => MineurEntity)
-    // @JoinColumn()
-    // mineur : MineurEntity;
 }

@@ -11,6 +11,6 @@ export class Acte {
         public fichier: string,
 
         public model: Model,
-        public bines: Bien[],
+        public bien: Bien[],
     ) { };
 }

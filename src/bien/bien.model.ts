@@ -3,7 +3,6 @@ import { Acte } from "src/acte/acte.model";
 export class Bien {
     constructor(
         public id: number,
-        public actes: Acte[],
         public libelle: string,
         public type: string,
         public description: string,
@@ -15,6 +14,6 @@ export class Bien {
         public Immeuble: string,
         public terrainType: string,
         public ancfcc: string,
-        public valeur:number
-    ) {};
+        public valeur: number
+    ) { };
 }

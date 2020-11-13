@@ -6,12 +6,12 @@ import { PersonPhisique } from "../person-phisique/person-phisique.model";
 
 
 @Entity()
-export class EntrepriseCom{
+export class EntrepriseCom {
 
     @PrimaryGeneratedColumn()
     @OneToOne(() => ComparentEntity)
     @JoinTable()
-    comparent : ComparentEntity;
+    comparent: ComparentEntity;
 
     @Column('text') raisonSociale: string;
     @Column('text') ice: string;
@@ -20,7 +20,6 @@ export class EntrepriseCom{
     @Column('text') Adresse: string;
 
 
-    @OneToMany(()=>PersonPhysiqiueEntity, representant => representant.entreprise)
-    representant: PersonPhysiqiueEntity[];
+    @Column('int') representant: number[];
 
 }

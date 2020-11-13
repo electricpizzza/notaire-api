@@ -31,7 +31,7 @@ export class BienController {
         @Body('ancfcc') ancfcc: string,
         @Body('valeur') valeur: number,
     ) {
-        const bien = new Bien(null, null, libelle, type, description, address, ville, Superficie, nb_piece, etage, Immeuble, terrainType, ancfcc, valeur);
+        const bien = new Bien(null, libelle, type, description, address, ville, Superficie, nb_piece, etage, Immeuble, terrainType, ancfcc, valeur);
         return this.bienService.createBien(bien);
     }
 }
