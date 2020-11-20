@@ -22,9 +22,10 @@ import { AuthModule } from './auth/auth.module';
     ModelModule,
     BienModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    UserModule
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService, UserService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule { }

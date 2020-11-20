@@ -74,24 +74,6 @@ export class ComparentService {
         return comparent;
     }
 
-    async deleteComparent(id: number) {
-        const comparent = this.comparentRepository.find({ where: { id } });
-
-        if (!comparent) {
-            if (comparent[0].type === 'pp') {
-                this.personRepository.delete(id);
-            }
-            if (comparent[0].type === 'entreprise') {
-                this.entrepriseRepository.delete(id);
-            }
-            if (comparent[0].type === 'mineur') {
-                this.mineurRepository.delete(id);
-            }
-            this.comparentRepository.delete(id)
-        } else throw new NotFoundException("Comarent Not Found");
-
-        return comparent;
-    }
 
     async createEntreprise(entreprise) {
 
@@ -105,6 +87,82 @@ export class ComparentService {
 
     async createMineur(mineur) {
         return await this.mineurRepository.insert(mineur);
+    }
+
+
+    //  Update Comparebts
+
+
+    async updateEntreprise(entre: Entreprise) {
+        const entreprise = this.entrepriseRepository.update(entre.comparent, entre)
+        return entreprise;
+    }
+
+    async updatePerson(person: PersonPhisique) {
+
+        const personPh = await this.personRepository.findOneOrFail({ where: { comparent: person.comparent } })
+        personPh.nomFr = person.nomFr;
+        personPh.nomAr = person.nomAr;
+        personPh.prenomFr = person.prenomFr;
+        personPh.prenomAr = person.prenomAr;
+        personPh.nationalite = person.nationalite;
+        personPh.fonction = person.fonction;
+        personPh.nomPereFr = person.nomPereFr;
+        personPh.nomPereAr = person.nomPereAr;
+        personPh.nomMereFr = person.nomMereFr;
+        personPh.nomMereAr = person.nomMereAr;
+        personPh.situation = person.situation;
+        personPh.dateNaissance = person.dateNaissance;
+        personPh.nomCompanionFr = person.nomCompanionFr;
+        personPh.nomCompanionAr = person.nomCompanionAr;
+        personPh.typeIdentification = person.typeIdentification;
+        personPh.Identification = person.Identification;
+        personPh.IdentificationValable = person.IdentificationValable;
+
+        return this.personRepository.update(person.comparent, personPh);
+
+    }
+
+    async updateMinor(min: Mineur) {
+        const minor = await this.mineurRepository.findOneOrFail({ where: { comparent: min.comparent } });
+        minor.nomFr = min.nomFr;
+        minor.nomAr = min.nomAr;
+        minor.prenomFr = min.prenomFr;
+        minor.prenomAr = min.prenomAr;
+        minor.nationalite = min.nationalite;
+        minor.nomPereFr = min.nomPereFr;
+        minor.nomPereAr = min.nomPereAr;
+        minor.nomMereFr = min.nomMereFr;
+        minor.nomMereAr = min.nomMereAr;
+        minor.dateNaissance = min.dateNaissance;
+        minor.typeIdentification = min.typeIdentification;
+        minor.Identification = min.Identification;
+        minor.IdentificationValable = min.IdentificationValable;
+        minor.tutelle = [min.tutelle];
+
+        return this.mineurRepository.update(min.comparent, minor);
+    }
+
+    //  Delete Comparent
+
+    async deleteComparent(id: number) {
+        const comparent = await this.comparentRepository.findOne({ where: { id } });
+        console.log(comparent);
+
+        if (comparent) {
+            if (comparent.type === 'PP') {
+                await this.personRepository.delete(id);
+            }
+            if (comparent.type === 'PM') {
+                await this.entrepriseRepository.delete(id);
+            }
+            if (comparent.type === 'PPM') {
+                await this.mineurRepository.delete(id);
+            }
+            await this.comparentRepository.delete(id)
+        } else throw new NotFoundException("Comarent Not Found");
+
+        return comparent;
     }
 
 }

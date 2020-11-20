@@ -96,8 +96,79 @@ export class ComparentController {
     updateComparent(@Param('id') compId: number) {
         return;
     }
+
+
+    @Put('/entreprise/:comparent')
+    updateEntreprise(
+        @Param('comparent') comparent: number,
+        @Body('raisonSociale') raisonSociale: string,
+        @Body('ice') ice: string,
+        @Body('rc') rc: string,
+        @Body('cnss') cnss: number,
+        @Body('Adresse') Adresse: string,
+        @Body('representant') representant: number[],
+    ) {
+        const entreprise = new Entreprise(comparent, representant, raisonSociale, ice, rc, cnss, Adresse)
+        return this.comparentService.updateEntreprise(entreprise);
+    }
+
+    @Put('/person/:comparent')
+    updatePerson(
+        @Param('comparent') comparent: number,
+        @Body('nomFr') nomFr: string,
+        @Body('nomAr') nomAr: string,
+        @Body('prenomFr') prenomFr: string,
+        @Body('prenomAr') prenomAr: string,
+        @Body('nationalite') nationalite: string,
+        @Body('fonction') fonction: string,
+        @Body('nomPereFr') nomPereFr: string,
+        @Body('nomPereAr') nomPereAr: string,
+        @Body('nomMereFr') nomMereFr: string,
+        @Body('nomMereAr') nomMereAr: string,
+        @Body('situation') situation: string,
+        @Body('dateNaissance') dateNaissance: Date,
+        @Body('nomCompanionFr') nomCompanionFr: string,
+        @Body('nomCompanionAr') nomCompanionAr: string,
+        @Body('typeIdentification') typeIdentification: string,
+        @Body('Identification') Identification: string,
+        @Body('IdentificationValable') IdentificationValable: Date,
+
+    ) {
+        const person = new PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, fonction, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable);
+        return this.comparentService.updatePerson(person);
+    }
+
+    @Put('/mineur/:comparent')
+    updateMinor(
+        @Param('comparent') comparent: number,
+        @Body('nomFr') nomFr: string,
+        @Body('nomAr') nomAr: string,
+        @Body('prenomFr') prenomFr: string,
+        @Body('prenomAr') prenomAr: string,
+        @Body('nationalite') nationalite: string,
+        @Body('nomPereFr') nomPereFr: string,
+        @Body('nomPereAr') nomPereAr: string,
+        @Body('nomMereFr') nomMereFr: string,
+        @Body('nomMereAr') nomMereAr: string,
+        @Body('dateNaissance') dateNaissance: Date,
+        @Body('typeIdentification') typeIdentification: string,
+        @Body('Identification') Identification: string,
+        @Body('IdentificationValable') IdentificationValable: Date,
+        @Body('tutelle') tutelle: number,
+    ) {
+        const mineur = new Mineur(comparent, tutelle, nomFr, nomAr, prenomFr, prenomAr, nationalite, nomPereFr, nomPereAr, nomMereFr, nomMereAr, dateNaissance, typeIdentification, Identification, IdentificationValable);
+        return this.comparentService.updateMinor(mineur);
+    }
+
+
+
+
+
+
     @Delete(':id')
     deleteComparent(@Param('id') compId: number) {
         return this.comparentService.deleteComparent(compId);
     }
 }
+
+

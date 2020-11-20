@@ -25,4 +25,20 @@ export class ActeService {
         return await this.acteRepository.insert(acte);
     }
 
+    async updateActe(acte: Acte) {
+        const newActe = await this.acteRepository.findOne({ where: { id: acte.id } });
+        newActe.libelle = acte.libelle;
+        newActe.redacteur = acte.redacteur;
+        newActe.contenu = JSON.stringify(acte.contenu);
+        newActe.dateRedaction = acte.dateRedaction;
+        newActe.fichier = acte.fichier;
+        console.log(newActe);
+
+        return await this.acteRepository.update(acte.id, newActe);
+    }
+
+    async deleteActe(id: number) {
+        return await this.acteRepository.delete(id);
+    }
+
 }

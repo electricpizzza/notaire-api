@@ -43,14 +43,22 @@ export class DossierService {
         return dossier;
     }
 
-    async updateDossier(id: number, title: string, description: string) {
-        const dossier = await this.dossierRepository.findOne({ where: { id } });
+    async updateDossier(doc: Dossier) {
+        const dossier = await this.dossierRepository.findOne({ where: { id: doc.id } });
         if (!dossier) {
             throw new NotFoundException("Dossier Introuvable");
 
         }
-        dossier.title = title;
-        dossier.description = description;
+        dossier.title = doc.title;
+        dossier.description = doc.description;
+        dossier.nature = doc.nature;
+        dossier.libelle = doc.libelle;
+        dossier.dateOuverture = doc.dateOuverture;
+        dossier.dateFermeture = doc.dateFermeture;
+        dossier.NomMaitre = doc.NomMaitre;
+        dossier.comparents = doc.comparents;
+        dossier.bien = doc.bien;
+
         this.dossierRepository.save(dossier);
 
         return dossier;
@@ -58,5 +66,18 @@ export class DossierService {
 
     async deletDossier(id: number) {
         this.dossierRepository.delete(id)
+    }
+
+
+    async closeDossier(id: number) {
+        const newDossier = await this.dossierRepository.findOne({ where: { id } })
+        if (!newDossier)
+            throw new NotFoundException()
+        else {
+            const today = new Date();
+            newDossier.dateFermeture = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+            this.dossierRepository.save(newDossier);
+        }
+        return newDossier;
     }
 }

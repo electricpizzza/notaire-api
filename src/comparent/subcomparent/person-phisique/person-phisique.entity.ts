@@ -7,12 +7,12 @@ import { MineurEntity } from "../mineur/mineur.entity";
 import { Mineur } from "../mineur/mineur.model";
 
 @Entity()
-export class PersonPhysiqiueEntity{
+export class PersonPhysiqiueEntity {
 
     @PrimaryGeneratedColumn()
     @OneToOne(() => ComparentEntity)
     @JoinTable()
-    comparent : ComparentEntity;
+    comparent: ComparentEntity;
 
     @Column('text') nomFr: string;
     @Column('text') nomAr: string;
@@ -20,7 +20,7 @@ export class PersonPhysiqiueEntity{
     @Column('text') prenomAr: string;
     @Column('text') nationalite: string;
     @Column('text') fonction: string;
-    
+
     @Column('text') nomPereFr: string;
     @Column('text') nomPereAr: string;
     @Column('text') nomMereFr: string;
@@ -35,10 +35,4 @@ export class PersonPhysiqiueEntity{
     @Column('text') Identification: string;
     @Column('date') IdentificationValable: Date;
 
-    @OneToOne(() => MineurEntity, mineur => mineur.tutelle)
-    @JoinTable()
-    mineur : Mineur;
-
-    @ManyToOne(()=> EntrepriseCom, entreprise => entreprise.representant)
-    entreprise: EntrepriseCom;
 }
