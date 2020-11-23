@@ -12,6 +12,7 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { ArchiveModule } from './archive/archive.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { AuthModule } from './auth/auth.module';
     BienModule,
     UserModule,
     AuthModule,
-    UserModule
+    UserModule,
+    ArchiveModule
   ],
   controllers: [AppController],
   providers: [AppService],
