@@ -22,7 +22,7 @@ export class DossierController {
 
 
     @Get()
-    @UseGuards(new AuthGuard())
+    // @UseGuards(new AuthGuard())
     getDossiers() {
         const allDocs = this.dossierServeice.getDocs();
         return allDocs;

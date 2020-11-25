@@ -24,7 +24,7 @@ export class ArchiveController {
             destination: './uploads/',
             filename: function (req, file, cb) {
                 const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1]
-                cb(null, file.fieldname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
+                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
             }
         })
     }))
@@ -48,7 +48,7 @@ export class ArchiveController {
             destination: './uploads/',
             filename: (req, file, cb) => {
                 const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1]
-                cb(null, file.fieldname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
+                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
             }
         })
     }))
@@ -56,7 +56,11 @@ export class ArchiveController {
         @Param('id') id: number,
         @UploadedFiles() files
     ) {
-        return this.archiveService.addFileToArchive(id, [...files])
+        const filesPath = []
+        files.forEach(file => {
+            filesPath.push(file.path);
+        });
+        return this.archiveService.addFileToArchive(id, filesPath)
     }
 
 

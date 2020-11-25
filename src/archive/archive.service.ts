@@ -37,10 +37,13 @@ export class ArchiveService {
         return archive;
     }
 
-    async addFileToArchive(id: number, files: string[]) {
+    async addFileToArchive(id: number, files) {
         const archive = await this.archiveRepository.findOneOrFail({ where: { id } });
         if (!archive) throw new NotFoundException();
-        // archive.filesPath.push(...files);
+        const filesPath = JSON.parse(archive.filesPath)
+        filesPath.push(...files);
+        console.log(filesPath);
+        archive.filesPath = JSON.stringify(filesPath)
         this.archiveRepository.save(archive)
         return archive;
     }
