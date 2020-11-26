@@ -8,11 +8,11 @@ import { ActeModule } from './acte/acte.module';
 import { ModelService } from './model/model.service';
 import { ModelModule } from './model/model.module';
 import { BienModule } from './bien/bien.module';
-import { UserController } from './user/user.controller';
-import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ArchiveModule } from './archive/archive.module';
+import { DevisModule } from './devis/devis.module';
+import { FactureModule } from './facture/facture.module';
 
 @Module({
   imports: [
@@ -25,7 +25,9 @@ import { ArchiveModule } from './archive/archive.module';
     UserModule,
     AuthModule,
     UserModule,
-    ArchiveModule
+    ArchiveModule,
+    DevisModule,
+    FactureModule
   ],
   controllers: [AppController],
   providers: [AppService],

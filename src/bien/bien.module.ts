@@ -10,4 +10,4 @@ import { BienController } from './bien.controller';
   providers: [BienService],
   controllers: [BienController]
 })
-export class BienModule {}
+export class BienModule { }

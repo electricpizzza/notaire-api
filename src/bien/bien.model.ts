@@ -1,5 +1,3 @@
-import { Acte } from "src/acte/acte.model";
-
 export class Bien {
     constructor(
         public id: number,
