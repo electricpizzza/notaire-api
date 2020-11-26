@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { BienEntity } from './bein.entity';
 import { Bien } from './bien.model';
 
+
 @Injectable()
 export class BienService {
     constructor(@InjectRepository(BienEntity) private bienRepository: Repository<BienEntity>) { };

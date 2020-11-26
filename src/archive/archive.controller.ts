@@ -3,6 +3,7 @@ import { AnyFilesInterceptor, FilesInterceptor } from '@nestjs/platform-express'
 import { ArchiveService } from './archive.service';
 import * as multer from 'multer';
 import Archive from './archive.model';
+import * as hummus from 'hummus'
 
 @Controller('archive')
 export class ArchiveController {
@@ -30,15 +31,25 @@ export class ArchiveController {
     }))
     createArchive(
         @Body('titre') titre: string,
+        @Body('description') description: string,
         @Body('dossier') dossier: number,
         @UploadedFiles() files
     ) {
         const filesPath = []
+        const today = new Date();
+        const pdfWriter = hummus.createWriter(`./uploads/archive/archive-${titre.replace(' ', '-')}-${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}.pdf`);
         files.forEach(file => {
             filesPath.push(file.path);
+            if (file.mimetype !== "application/pdf") {
+                const page = pdfWriter.createPage(0, 0, 595, 842);
+                const ctx = pdfWriter.startPageContentContext(page)
+                ctx.drawImage(10, 10, file.path)
+                pdfWriter.writePage(page);
+            } else
+                pdfWriter.appendPDFPagesFromPDF(file.path)
         });
-        const archive = new Archive(null, titre, filesPath, 1)
-
+        pdfWriter.end();
+        const archive = new Archive(null, titre, description, filesPath, dossier)
         return this.archiveService.createArchive(archive);
     }
 
@@ -57,9 +68,19 @@ export class ArchiveController {
         @UploadedFiles() files
     ) {
         const filesPath = []
+        const pdfWriter = hummus.createWriterToModify('./uploads/archive/file2.pdf'); //change the  file to the dynamic one
         files.forEach(file => {
             filesPath.push(file.path);
+            if (file.mimetype !== "application/pdf") {
+                const page = pdfWriter.createPage(0, 0, 595, 842)
+                const cxt = pdfWriter.startPageContentContext(page);
+                cxt.drawImage(100, 100, './uploads/archive/trash/exemple-de-devis-escalier.png-2020-11-26T13:34:04.678Z.png');
+                pdfWriter.writePage(page);
+            } else
+                pdfWriter.appendPDFPagesFromPDF(file.path);
         });
+        pdfWriter.end()
+
         return this.archiveService.addFileToArchive(id, filesPath)
     }
 
