@@ -10,7 +10,7 @@ export class FactureService {
     constructor(@InjectRepository(FactureEntity) private factureReppository: Repository<FactureEntity>) { }
 
     async getOneFacture(id: number) {
-        const facture = await this.factureReppository.findOneOrFail({ where: { id } });
+        const facture = await this.factureReppository.findOne({ where: { id } });
         if (!facture) {
             throw new NotFoundException()
         }
@@ -37,7 +37,7 @@ export class FactureService {
         ctx.drawImage(10, 742, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } })
             .writeText('Archive 1 ', 120, 800, textOptions)
             .writeText(`Date de Creation: ${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`, 320, 800, {
-                font: pdfWriter.getFontForFile('./assets/BrushScriptStd.otf'),
+                font: pdfWriter.getFontForFile('./assets/SpecialElite-Regular.ttf'),
                 size: 20,
                 colorspace: 'gray',
                 color: 0x00

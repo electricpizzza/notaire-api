@@ -11,7 +11,7 @@ export class ArchiveService {
     ) { }
 
     async getOneArchive(id: number) {
-        const archive = await this.archiveRepository.findOneOrFail({ where: { id } });
+        const archive = await this.archiveRepository.findOne({ where: { id } });
         if (!archive) throw new NotFoundException();
         return archive;
     }
@@ -32,13 +32,13 @@ export class ArchiveService {
     }
 
     async updateArchive(id: number, title: string, dossier: number, file: [any]) {
-        const archive = await this.archiveRepository.findOneOrFail({ where: { id } });
+        const archive = await this.archiveRepository.findOne({ where: { id } });
         if (!archive) throw new NotFoundException();
         return archive;
     }
 
     async addFileToArchive(id: number, files) {
-        const archive = await this.archiveRepository.findOneOrFail({ where: { id } });
+        const archive = await this.archiveRepository.findOne({ where: { id } });
         if (!archive) throw new NotFoundException();
         const filesPath = JSON.parse(archive.filesPath)
         filesPath.push(...files);

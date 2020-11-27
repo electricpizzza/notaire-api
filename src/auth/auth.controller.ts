@@ -13,7 +13,7 @@ export class AuthController {
     tempUser() {
         return { auth: 'works' };
     }
-    @UseGuards(new RolesGuard(['admin']))
+
     @Post('login')
     async login(@Body('email') email: string, @Body('password') password: string) {
         const user = await this.authService.validateUser(email, password);

@@ -100,7 +100,7 @@ export class ComparentService {
 
     async updatePerson(person: PersonPhisique) {
 
-        const personPh = await this.personRepository.findOneOrFail({ where: { comparent: person.comparent } })
+        const personPh = await this.personRepository.findOne({ where: { comparent: person.comparent } })
         personPh.nomFr = person.nomFr;
         personPh.nomAr = person.nomAr;
         personPh.prenomFr = person.prenomFr;
@@ -124,7 +124,7 @@ export class ComparentService {
     }
 
     async updateMinor(min: Mineur) {
-        const minor = await this.mineurRepository.findOneOrFail({ where: { comparent: min.comparent } });
+        const minor = await this.mineurRepository.findOne({ where: { comparent: min.comparent } });
         minor.nomFr = min.nomFr;
         minor.nomAr = min.nomAr;
         minor.prenomFr = min.prenomFr;

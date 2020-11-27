@@ -3,38 +3,41 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import * as multer from 'multer';
 import * as hummus from 'hummus'
+import { Inovice } from './inovice';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {
-    //    ./uploads/cadetaf.pdf-2020-11-25T14:43:35.789Z.pdf
-    //    ./uploads/archive/file.pdf
-
-    const today = new Date();
-    const pdfWriter = hummus.createWriter('./uploads/archive/file2.pdf');
-    const page = pdfWriter.createPage(0, 0, 595, 842)
-    const cxt = pdfWriter.startPageContentContext(page);
-    const textOptions = {
-      font: pdfWriter.getFontForFile('./assets/BrushScriptStd.otf'),
-      size: 40,
-      colorspace: 'gray',
-      color: 0x00
-    };
-    cxt.drawImage(10, 742, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } })
-      .writeText('Archive 1 ', 120, 800, textOptions)
-      .writeText(`Date de Creation: ${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`, 320, 800, {
-        font: pdfWriter.getFontForFile('./assets/BrushScriptStd.otf'),
-        size: 20,
-        colorspace: 'gray',
-        color: 0x00
-      })
-    cxt.drawImage(10, 10, './uploads/archive/trash/exemple-de-devis-escalier.png-2020-11-26T13:34:04.678Z.png');
-    pdfWriter.writePage(page);
-
-    pdfWriter.end()
-
+    const inovice = new Inovice()
+    const articles = [
+      {
+        ref: 'Ref29/21e',
+        description: 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs',
+        pu: 5000,
+        qte: 1,
+        total: 5000,
+      },
+      {
+        ref: 'Ref33/23D',
+        description: 'thought to have scrambled parts',
+        pu: 3000,
+        qte: 1,
+        total: 2000,
+      },
+      {
+        ref: 'Ref2/SD2',
+        description: ' The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts',
+        pu: 1000,
+        qte: 2,
+        total: 3000,
+      }
+    ];
+    const client = {
+      address: 'Av Chefchaouni 36'
+    }
+    inovice.makeInovice('devis', 1232, articles, "Benjelloun", client, "Espece", "12-12-202");
     return this.appService.getHello();
   }
 

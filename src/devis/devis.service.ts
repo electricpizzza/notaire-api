@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Inovice } from 'src/inovice';
 import { Repository } from 'typeorm';
 import { DeviseEntity } from './devis.entity';
 import { Devis } from './devis.model';
@@ -14,14 +15,17 @@ export class DevisService {
     }
 
     async getOneDevis(id: number) {
-        return await this.devisRepository.findOneOrFail({ where: { id } });
+        return await this.devisRepository.findOne({ where: { id } });
     }
     async createDevis(devis: Devis) {
+
+        const inovice = new Inovice()
+        inovice.makeInovice("devis", devis.id, devis.articles, "Benjelloun", devis.client, "Espece", devis.dateDevis)
         return await this.devisRepository.insert(devis)
     }
 
     async updateDevis(devis: Devis) {
-        const newDevis = await this.devisRepository.findOneOrFail({ where: { id: devis.id } });
+        const newDevis = await this.devisRepository.findOne({ where: { id: devis.id } });
         if (!newDevis) {
             throw new NotFoundException()
         }
@@ -37,7 +41,7 @@ export class DevisService {
 
 
     async deletDevis(id: number) {
-        const newDevis = await this.devisRepository.findOneOrFail({ where: { id } });
+        const newDevis = await this.devisRepository.findOne({ where: { id } });
         if (!newDevis) {
             throw new NotFoundException()
         }

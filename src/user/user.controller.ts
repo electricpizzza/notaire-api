@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auh.gaurd';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { RolesGuard } from 'src/auth/roles.gaurd';
 import { User } from './user.model';
 import { UserService } from './user.service';
 
 @Controller('user')
-@UseGuards(new AuthGuard())
+@UseGuards(new RolesGuard(['admin', 'assistance']))
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
@@ -20,7 +20,13 @@ export class UserController {
 
     @Post()
     registre(@Body('email') email: string, @Body('password') password: string, @Body('role') role: string, @Body('nom') nom: string, @Body('prenom') prenom: string) {
-        const user = new User(null, nom, prenom, email, password, role, null);
+        const user = new User(null, nom, prenom, email, password, role);
         return this.userService.createUser(user);
+    }
+
+    @Put(':id')
+    updateUser(@Param('id') id: number, @Body('email') email: string, @Body('password') password: string, @Body('role') role: string, @Body('nom') nom: string, @Body('prenom') prenom: string) {
+        const user = new User(id, nom, prenom, email, password, role)
+        return this.userService.updateUser(user);
     }
 }

@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { ArchiveModule } from './archive/archive.module';
 import { DevisModule } from './devis/devis.module';
 import { FactureModule } from './facture/facture.module';
+import { ActionModule } from './action/action.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { FactureModule } from './facture/facture.module';
     UserModule,
     ArchiveModule,
     DevisModule,
-    FactureModule
+    FactureModule,
+    ActionModule
   ],
   controllers: [AppController],
   providers: [AppService],
