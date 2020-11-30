@@ -37,7 +37,8 @@ export class ArchiveController {
     ) {
         const filesPath = []
         const today = new Date();
-        const pdfWriter = hummus.createWriter(`./uploads/archive/archive-${titre.replace(' ', '-')}-${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}.pdf`);
+        const mainFile = `./uploads/archive/archive-${titre.replace(' ', '-')}-${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}.pdf`;
+        const pdfWriter = hummus.createWriter(mainFile);
         files.forEach(file => {
             filesPath.push(file.path);
             if (file.mimetype !== "application/pdf") {
@@ -49,7 +50,7 @@ export class ArchiveController {
                 pdfWriter.appendPDFPagesFromPDF(file.path)
         });
         pdfWriter.end();
-        const archive = new Archive(null, titre, description, filesPath, dossier)
+        const archive = new Archive(null, titre, description, filesPath, dossier, mainFile)
         return this.archiveService.createArchive(archive);
     }
 
@@ -67,21 +68,7 @@ export class ArchiveController {
         @Param('id') id: number,
         @UploadedFiles() files
     ) {
-        const filesPath = []
-        const pdfWriter = hummus.createWriterToModify('./uploads/archive/file2.pdf'); //change the  file to the dynamic one
-        files.forEach(file => {
-            filesPath.push(file.path);
-            if (file.mimetype !== "application/pdf") {
-                const page = pdfWriter.createPage(0, 0, 595, 842)
-                const cxt = pdfWriter.startPageContentContext(page);
-                cxt.drawImage(100, 100, './uploads/archive/trash/exemple-de-devis-escalier.png-2020-11-26T13:34:04.678Z.png');
-                pdfWriter.writePage(page);
-            } else
-                pdfWriter.appendPDFPagesFromPDF(file.path);
-        });
-        pdfWriter.end()
-
-        return this.archiveService.addFileToArchive(id, filesPath)
+        return this.archiveService.addFileToArchive(id, files)
     }
 
 

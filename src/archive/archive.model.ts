@@ -4,6 +4,7 @@ export default class Archive {
         public titre: string,
         public description: string,
         public filesPath: string[],
-        public dossiers: number
+        public dossiers: number,
+        public mainFile: string
     ) { }
 }

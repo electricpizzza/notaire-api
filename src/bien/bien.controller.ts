@@ -13,7 +13,7 @@ export class BienController {
 
     @Get(':id')
     getOneBien(@Param('id') id: number) {
-        return this.getOneBien(id)
+        return this.bienService.getOneBien(id);
     }
 
     @Post()

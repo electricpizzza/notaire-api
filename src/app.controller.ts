@@ -37,7 +37,7 @@ export class AppController {
     const client = {
       address: 'Av Chefchaouni 36'
     }
-    inovice.makeInovice('devis', 1232, articles, "Benjelloun", client, "Espece", "12-12-202");
+    // inovice.makeInovice('devis', 1232, articles, "Benjelloun", client, "Espece", "12-12-202");
     return this.appService.getHello();
   }
 

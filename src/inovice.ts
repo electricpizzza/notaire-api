@@ -1,7 +1,7 @@
 import * as hummus from 'hummus'
 
 export class Inovice {
-    makeInovice(type: string, ref, articles: any[], maitre: string, client: any, payment: string, jusqua) {
+    makeInovice(type: string, ref, articles: any[], maitre: string, client: any, payment: string, jusqua, total: number) {
 
         const date = new Date()
         const today = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -81,9 +81,9 @@ export class Inovice {
 
 
         // total ht, tva & ttc
-        cxt.writeText('4400 DHs', 450, 230, tableTextOption)
+        cxt.writeText(`${total} DHs`, 450, 230, tableTextOption)
             .writeText('20%', 450, 210, tableTextOption)
-            .writeText('5280 DHs', 450, 190, tableTextOption)
+            .writeText(`${total + (total * 0.2)} DHs`, 450, 190, tableTextOption)
 
 
         pdfWriter.writePage(page);
@@ -91,6 +91,6 @@ export class Inovice {
         pdfWriter.end()
 
 
-        return;
+        return `./uploads/${type}/${type === "devis" ? 'devis' : 'facture'}-${ref + '-' + today}.pdf`;
     }
 }

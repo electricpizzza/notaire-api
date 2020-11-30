@@ -6,7 +6,9 @@ export class DeviseEntity {
     @PrimaryGeneratedColumn('increment') id: number;
     @Column('text') termes: string;
     @Column('date') dateDevis: Date;
-    @Column('int') client: number;
-    @Column('int') remisG: number;
+    @Column('json') client: any;
+    @Column('real') remisG: number;
+    @Column('real') total: number;
     @Column('json') articles: any
+    @Column('text') maitre: string
 }

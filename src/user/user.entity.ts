@@ -5,7 +5,7 @@ export class UserEntity {
     @PrimaryGeneratedColumn('increment') id: number;
     @Column('text') nom: string;
     @Column('text') prenom: string;
-    @PrimaryColumn('text') email: string;
+    @PrimaryColumn('varchar', { length: 50 }) email: string;
     @Column('text') role: string;
     @Column('text') password: string;
 

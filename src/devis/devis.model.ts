@@ -3,9 +3,11 @@ export class Devis {
         public id: number,
         public termes: string,
         public dateDevis: Date,
-        public client: number,
+        public client: any,
         public remisG: number,
-        public articles: any
+        public total: number,
+        public articles: any,
+        public maitre: string
     ) { }
 
 }
