@@ -11,16 +11,17 @@ export class AppController {
   @Get()
   getHello(): string {
 
-    const pdfWriter = hummus.createWriter(`./uploads/exemplaire.pdf`);
-    const page = pdfWriter.createPage(0, 0, 585, 782)
-    const cxt = pdfWriter.startPageContentContext(page);
-    cxt.drawImage(30, 80, './assets/exemple.png')
-      .drawImage(60, 660, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } })
+    // const pdfWriter = hummus.createWriter(`./uploads/exemplaire.pdf`);
+    // const page = pdfWriter.createPage(0, 0, 585, 782)
+    // const cxt = pdfWriter.startPageContentContext(page);
+    // cxt.drawImage(30, 80, './assets/exemple.png')
+    //   .drawImage(60, 660, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } })
 
 
-    pdfWriter.writePage(page);
+    // pdfWriter.writePage(page);
 
-    pdfWriter.end()
+    // pdfWriter.end()
+    return 'Bien Conecté';
 
     return this.appService.getHello();
   }
