@@ -31,7 +31,7 @@ AppModule = __decorate([
             dossier_module_1.DossierModule,
             config_1.ConfigModule.forRoot(),
             typeorm_1.TypeOrmModule.forRoot({
-                "type": "mysql",
+                "type": "postgres",
                 "host": process.env.DB_HOST,
                 "port": Number(process.env.DB_PORT),
                 "username": process.env.DB_USERNAME,
@@ -39,7 +39,7 @@ AppModule = __decorate([
                 "database": process.env.DB_DATABASE,
                 "entities": ["dist/**/*.entity{.ts,.js}"],
                 "logging": true,
-                "synchronize": false
+                "synchronize": true
             }),
             comparent_module_1.ComparentModule,
             acte_module_1.ActeModule,
