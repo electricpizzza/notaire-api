@@ -23,7 +23,6 @@ let AppController = class AppController {
         this.appService = appService;
     }
     getHello() {
-        return process.env.APP_NAME;
         return this.appService.getHello();
     }
     uploadFile(file, data) {

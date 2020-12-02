@@ -22,7 +22,7 @@ export class AppController {
 
     // pdfWriter.end()
 
-    return process.env.APP_NAME;
+
 
     return this.appService.getHello();
   }
