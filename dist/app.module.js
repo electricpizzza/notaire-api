@@ -31,7 +31,7 @@ AppModule = __decorate([
             dossier_module_1.DossierModule,
             config_1.ConfigModule.forRoot(),
             typeorm_1.TypeOrmModule.forRoot({
-                "type": "postgres",
+                "type": "mysql",
                 "host": process.env.DB_HOST,
                 "port": Number(process.env.DB_PORT),
                 "username": process.env.DB_USERNAME,
