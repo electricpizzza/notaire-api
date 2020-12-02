@@ -69,4 +69,9 @@ export class AppController {
     return resp.sendFile(file, { root: 'uploads' })
   }
 
+  @Get('archive/:file')
+  getArchive(@Param('file') file, @Res() resp) {
+    return resp.sendFile(file, { root: 'uploads/archives' })
+  }
+
 }
