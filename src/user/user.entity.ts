@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, Unique } from 'typeorm'
 @Entity()
+@Unique("UQ_EMAIL", ["email"])
 export class UserEntity {
 
     @PrimaryGeneratedColumn('increment') id: number;
@@ -8,5 +9,4 @@ export class UserEntity {
     @PrimaryColumn('varchar', { length: 50 }) email: string;
     @Column('text') role: string;
     @Column('text') password: string;
-
 }

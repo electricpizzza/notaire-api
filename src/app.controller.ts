@@ -10,34 +10,18 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    const inovice = new Inovice()
-    const articles = [
-      {
-        ref: 'Ref29/21e',
-        description: 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs',
-        pu: 5000,
-        qte: 1,
-        total: 5000,
-      },
-      {
-        ref: 'Ref33/23D',
-        description: 'thought to have scrambled parts',
-        pu: 3000,
-        qte: 1,
-        total: 2000,
-      },
-      {
-        ref: 'Ref2/SD2',
-        description: ' The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts',
-        pu: 1000,
-        qte: 2,
-        total: 3000,
-      }
-    ];
-    const client = {
-      address: 'Av Chefchaouni 36'
-    }
-    // inovice.makeInovice('devis', 1232, articles, "Benjelloun", client, "Espece", "12-12-202");
+
+    const pdfWriter = hummus.createWriter(`./uploads/exemplaire.pdf`);
+    const page = pdfWriter.createPage(0, 0, 585, 782)
+    const cxt = pdfWriter.startPageContentContext(page);
+    cxt.drawImage(30, 80, './assets/exemple.png')
+      .drawImage(60, 660, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } })
+
+
+    pdfWriter.writePage(page);
+
+    pdfWriter.end()
+
     return this.appService.getHello();
   }
 
@@ -67,8 +51,19 @@ export class AppController {
     return file;
   }
 
+  @Get('uploads/devis/:file')
+  getDevis(@Param('file') file, @Res() resp) {
+    return resp.sendFile(file, { root: 'uploads/devis' })
+  }
+
+
+  @Get('uploads/factures/:file')
+  getFacture(@Param('file') file, @Res() resp) {
+    return resp.sendFile(file, { root: 'uploads/factures' })
+  }
+
   @Get('uploads/:file')
-  getFiles(@Param('file') file, @Res() resp) {
+  getFile(@Param('file') file, @Res() resp) {
     return resp.sendFile(file, { root: 'uploads' })
   }
 
