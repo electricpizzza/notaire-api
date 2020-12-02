@@ -21,7 +21,8 @@ export class AppController {
     // pdfWriter.writePage(page);
 
     // pdfWriter.end()
-    return 'Bien Conecté';
+
+    return process.env.APP_NAME;
 
     return this.appService.getHello();
   }
