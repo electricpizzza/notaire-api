@@ -21,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
     DossierModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      "type": "mysql",
+      "type": "postgres",
       "host": process.env.DB_HOST,
       "port": Number(process.env.DB_PORT),
       "username": process.env.DB_USERNAME,
