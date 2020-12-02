@@ -9,7 +9,7 @@ async function bootstrap() {
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
         credentials: true,
     });
-    await app.listen(process.env.APP_PORT || 80);
+    await app.listen(process.env.PORT || 80);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

@@ -3347,12 +3347,12 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "1ddc34e2495183a31429fcd499b5e2ecb3521b40af301437d889e93d2b3854fd",
+        "version": "46554b82a76c4ff86f399954addf3090e99e3fa350298bca63b596695c5c4aae",
         "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644",
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "66c5cd5fe911446b3de765bb69b382e84945dda16892e8236f87000a1fc390e6",
+        "version": "441c3a3f2031c95b235307e769099d55db8ffb7b58abcbeba6ced54e8f6f8607",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
