@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { ComparentEntity } from './comparent.entity';
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntrepriseCom } from './subcomparent/entreprise/entreprise.entity';
@@ -48,19 +48,6 @@ export class ComparentService {
     async createComparent(compa: Comparent, person?: PersonPhisique, entreprise?: Entreprise, mineur?: Mineur) {
 
         const newComp = await this.comparentRepository.insert(compa);
-        // let newDetail;
-        // if (newComp[0].type === 'pp') {
-        //     person.comparent = newComp;
-        //     newDetail = this.personRepository.create(person);
-        // }
-        // if (newComp[0].type === 'entreprise') {
-        //     entreprise.comparent = newComp;
-        //     newDetail = this.entrepriseRepository.create(entreprise);
-        // }
-        // if (newComp[0].type === 'mineur') {
-        //     mineur.comparent = newComp;
-        //     newDetail = this.mineurRepository.create(mineur);
-        // }
         return newComp;
     }
 
@@ -141,6 +128,13 @@ export class ComparentService {
         minor.tutelle = [min.tutelle];
 
         return this.mineurRepository.update(min.comparent, minor);
+    }
+
+    async getComparentByName(nom: string) {
+        const comparent = await this.comparentRepository.createQueryBuilder("comparent")
+            .where("comparent.nom like :nom", { nom: `%${nom}%` })
+            .getOne();
+        return comparent;
     }
 
     //  Delete Comparent

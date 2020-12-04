@@ -4,6 +4,8 @@ import { Dossier } from "./dossier.model";
 
 import { Repository } from 'typeorm';
 import { InjectRepository } from "@nestjs/typeorm";
+import { BienEntity } from "src/bien/bein.entity";
+import { ComparentEntity } from "src/comparent/comparent.entity";
 
 @Injectable()
 export class DossierService {
@@ -11,20 +13,13 @@ export class DossierService {
     constructor(
         @InjectRepository(DossierEntity)
         private dossierRepository: Repository<DossierEntity>,
+        @InjectRepository(BienEntity)
+        private bienRepository: Repository<BienEntity>,
+        @InjectRepository(ComparentEntity)
+        private comparentRepository: Repository<ComparentEntity>,
     ) { };
 
     async inserDossier(dossier: Dossier) {
-        // {
-        //     title: dossier.title,
-        //     description: dossier.description,
-        //     nature: dossier.nature,
-        //     libelle: dossier.libelle,
-        //     dateOuverture: dossier.dateOuverture,
-        //     dateFermeture: dossier.dateFermeture,
-        //     NomMaitre: dossier.NomMaitre,
-        //     bien: dossier.bien,
-        //     comparents: dossier.comparents.toString
-        // }
         const newDoc = await this.dossierRepository.insert(dossier);
         console.log(newDoc);
 
@@ -41,6 +36,26 @@ export class DossierService {
             throw new NotFoundException("Dossier Introuvable");
         }
         return dossier;
+    }
+
+    async searchDoc(libelle?: any, comp?: any) {
+        const bien = await this.bienRepository.createQueryBuilder('bien')
+            .where("bien.libelle like :libelle", { libelle: `%${libelle}%` })
+            .getOne();
+        const comparent = await this.comparentRepository.createQueryBuilder("comparent")
+            .where("comparent.nom like :nom", { nom: `%${comp}%` })
+            .getOne();
+        const doc = await this.dossierRepository.createQueryBuilder("dossier")
+            .where("dossier.bien like :bien1 or dossier.bien like :bien2 or dossier.bien like :bien3 or dossier.bien like :bien4"
+                , { bien1: `%[${bien.id},%`, bien2: `%[${bien.id}]%`, bien3: `%,${bien.id},%`, bien4: `%,${bien.id}]%` })
+            .andWhere("dossier.comparents like :comparent1 or dossier.comparents like :comparent2 or dossier.comparents like :comparent3 or dossier.comparents like :comparent4"
+                , { comparent1: `%[${comparent.id},%`, comparent2: `%[${comparent.id}]%`, comparent3: `%,${comparent.id},%`, comparent4: `%,${comparent.id}]%` })
+            .getMany();
+
+        if (!doc) {
+            throw new NotFoundException()
+        }
+        return doc;
     }
 
     async updateDossier(doc: Dossier) {

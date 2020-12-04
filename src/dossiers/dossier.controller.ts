@@ -1,13 +1,17 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete, UseGuards, Query } from "@nestjs/common";
 import { Dossier } from "./dossier.model";
 import { DossierService } from "./dossier.service";
 import { AuthGuard } from './../auth/auh.gaurd';
+import { ComparentService } from "src/comparent/comparent.service";
+import { BienService } from "src/bien/bien.service";
 
 
 
 @Controller('dossiers')
 export class DossierController {
-    constructor(private readonly dossierServeice: DossierService) { };
+    constructor(
+        private readonly dossierServeice: DossierService,
+    ) { };
     @Post()
     addDossier(@Body('title') docTitle: string, @Body('description') docDescription: string,
         @Body('nature') nature: string, @Body('libelle') libelle: string, @Body('dateOuverture') dateOuverture: string,
@@ -23,7 +27,16 @@ export class DossierController {
 
     @Get()
     // @UseGuards(new AuthGuard())
-    getDossiers() {
+    getDossiers(@Query() query: any) {
+
+        console.log(query);
+
+        if (query.dossier)
+            return this.getOneDoc(query.dossier);
+        if (query.comp && query.bien) {
+            const doc = this.dossierServeice.searchDoc(query.bien, query.comp);
+            return doc;
+        }
         const allDocs = this.dossierServeice.getDocs();
         return allDocs;
     }

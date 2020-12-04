@@ -4,27 +4,28 @@ import { AppService } from './app.service';
 import * as multer from 'multer';
 import * as hummus from 'hummus'
 import { Inovice } from './inovice';
+
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {
-
-    // const pdfWriter = hummus.createWriter(`./uploads/exemplaire.pdf`);
-    // const page = pdfWriter.createPage(0, 0, 585, 782)
-    // const cxt = pdfWriter.startPageContentContext(page);
-    // cxt.drawImage(30, 80, './assets/exemple.png')
-    //   .drawImage(60, 660, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } })
-
-
-    // pdfWriter.writePage(page);
-
-    // pdfWriter.end()
-
-
+    const articles = [
+      { ref: 'REF23', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
+      { ref: 'RE5F45', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
+      { ref: 'REF444', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
+      { ref: 'REF3460', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
+    ]
+    const inovice = new Inovice();
+    //inovice.testNewpage(articles);
 
     return this.appService.getHello();
+  }
+
+  @Get('data')
+  getData() {
+    return this.appService.getData();
   }
 
   @Post()
@@ -69,9 +70,9 @@ export class AppController {
     return resp.sendFile(file, { root: 'uploads' })
   }
 
-  @Get('archive/:file')
+  @Get('uploads/archive/:file')
   getArchive(@Param('file') file, @Res() resp) {
-    return resp.sendFile(file, { root: 'uploads/archives' })
+    return resp.sendFile(file, { root: 'uploads/archive' })
   }
 
 }

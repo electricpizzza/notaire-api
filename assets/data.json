@@ -1,0 +1,78 @@
+{
+    "NatureDossier":[
+        {
+            "ref":"N11",
+            "libelle":"Vendre Apartement",
+            "value":"vend_App",
+            "attachements":[
+                {
+                    "name":"idVendeur",
+                    "label":"Identification du vendeur"
+                },
+                                {
+                    "name":"idAchetueur",
+                    "label":"Identification du acheteur"
+                },
+                {
+                    "name":"ActeBien",
+                    "label":"Acte du bien(Appartement)"
+                }
+            ]
+        },
+        {
+            "ref":"N21",
+            "libelle":"Vendre Terrain",
+            "value":"vend_ter",
+            "attachements":[
+                {
+                    "name":"idVendeur",
+                    "label":"Identification du vendeur"
+                },
+                                {
+                    "name":"idAchetueur",
+                    "label":"Identification du acheteur"
+                },
+                {
+                    "name":"ActeBien",
+                    "label":"Acte du bien(Terrain)"
+                }
+            ]
+        },
+        {
+            "ref":"N22",
+            "libelle":"Location Terrain",
+            "value":"loc_ter",
+            "attachements":[
+                {
+                    "name":"idPropri",
+                    "label":"Identification du propriétaire"
+                },
+                                {
+                    "name":"idAchetueur",
+                    "label":"Identification du locateur"
+                },
+                {
+                    "name":"ActeBien",
+                    "label":"Acte du bien(Terrain)"
+                }
+            ]
+        }
+    ],
+    "typeBien":[
+        {
+            "ref":"bienApp",
+            "libelle":"Appartement",
+            "value":"appartement"
+        },
+        {
+            "ref":"bienTerr",
+            "libelle":"Terrain",
+            "value":"terrain"
+        },
+        {
+            "ref":"bienVilla",
+            "libelle":"Villa",
+            "value":"villa"
+        }
+    ]
+}

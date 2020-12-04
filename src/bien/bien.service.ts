@@ -21,6 +21,13 @@ export class BienService {
             return bien;
     }
 
+    async getBienByLibelle(libelle: string) {
+        const bien = await this.bienRepository.createQueryBuilder('bien')
+            .where("bien.libelle like :libelle", { libelle: `%${libelle}%` })
+            .getOne();
+        return bien.id;
+    }
+
     async createBien(bien: Bien) {
         const newBien = await this.bienRepository.insert(bien);
         return newBien;
