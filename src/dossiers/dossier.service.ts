@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from "@nestjs/typeorm";
 import { BienEntity } from "src/bien/bein.entity";
 import { ComparentEntity } from "src/comparent/comparent.entity";
+import { throwError } from "rxjs";
 
 @Injectable()
 export class DossierService {
@@ -45,15 +46,19 @@ export class DossierService {
         const comparent = await this.comparentRepository.createQueryBuilder("comparent")
             .where("comparent.nom like :nom", { nom: `%${comp}%` })
             .getOne();
+
+        if (!bien || !comparent) {
+            throw new NotFoundException();
+        }
         const doc = await this.dossierRepository.createQueryBuilder("dossier")
-            .where("dossier.bien like :bien1 or dossier.bien like :bien2 or dossier.bien like :bien3 or dossier.bien like :bien4"
+            .where("(dossier.bien like :bien1 or dossier.bien like :bien2 or dossier.bien like :bien3 or dossier.bien like :bien4)"
                 , { bien1: `%[${bien.id},%`, bien2: `%[${bien.id}]%`, bien3: `%,${bien.id},%`, bien4: `%,${bien.id}]%` })
-            .andWhere("dossier.comparents like :comparent1 or dossier.comparents like :comparent2 or dossier.comparents like :comparent3 or dossier.comparents like :comparent4"
+            .andWhere("(dossier.comparents like :comparent1 or dossier.comparents like :comparent2 or dossier.comparents like :comparent3 or dossier.comparents like :comparent4)"
                 , { comparent1: `%[${comparent.id},%`, comparent2: `%[${comparent.id}]%`, comparent3: `%,${comparent.id},%`, comparent4: `%,${comparent.id}]%` })
             .getMany();
 
         if (!doc) {
-            throw new NotFoundException()
+            throw new NotFoundException();
         }
         return doc;
     }

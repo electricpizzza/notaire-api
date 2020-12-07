@@ -28,9 +28,6 @@ export class DossierController {
     @Get()
     // @UseGuards(new AuthGuard())
     getDossiers(@Query() query: any) {
-
-        console.log(query);
-
         if (query.dossier)
             return this.getOneDoc(query.dossier);
         if (query.comp && query.bien) {

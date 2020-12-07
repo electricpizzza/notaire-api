@@ -15,6 +15,11 @@ import { DevisModule } from './devis/devis.module';
 import { FactureModule } from './facture/facture.module';
 import { ActionModule } from './action/action.module';
 import { ConfigModule } from '@nestjs/config';
+import { ComptabiliteController } from './comptabilite/comptabilite.controller';
+import { ComptabiliteModule } from './comptabilite/comptabilite.module';
+import { TransactionService } from './transaction/transaction.service';
+import { TransactionController } from './transaction/transaction.controller';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -41,7 +46,9 @@ import { ConfigModule } from '@nestjs/config';
     ArchiveModule,
     DevisModule,
     FactureModule,
-    ActionModule
+    ActionModule,
+    ComptabiliteModule,
+    TransactionModule
   ],
   controllers: [AppController],
   providers: [AppService],
