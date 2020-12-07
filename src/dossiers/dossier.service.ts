@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from "@nestjs/typeorm";
 import { BienEntity } from "src/bien/bein.entity";
 import { ComparentEntity } from "src/comparent/comparent.entity";
-import { throwError } from "rxjs";
+import { ComptabiliteEntity } from "src/comptabilite/comptabilite.entity";
 
 @Injectable()
 export class DossierService {
@@ -22,8 +22,6 @@ export class DossierService {
 
     async inserDossier(dossier: Dossier) {
         const newDoc = await this.dossierRepository.insert(dossier);
-        console.log(newDoc);
-
         return newDoc;
     }
 

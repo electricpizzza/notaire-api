@@ -5,7 +5,6 @@ import { AppService } from './app.service';
 import { DossierModule } from './dossiers/dossier.module';
 import { ComparentModule } from './comparent/comparent.module';
 import { ActeModule } from './acte/acte.module';
-import { ModelService } from './model/model.service';
 import { ModelModule } from './model/model.module';
 import { BienModule } from './bien/bien.module';
 import { UserModule } from './user/user.module';
@@ -15,10 +14,7 @@ import { DevisModule } from './devis/devis.module';
 import { FactureModule } from './facture/facture.module';
 import { ActionModule } from './action/action.module';
 import { ConfigModule } from '@nestjs/config';
-import { ComptabiliteController } from './comptabilite/comptabilite.controller';
 import { ComptabiliteModule } from './comptabilite/comptabilite.module';
-import { TransactionService } from './transaction/transaction.service';
-import { TransactionController } from './transaction/transaction.controller';
 import { TransactionModule } from './transaction/transaction.module';
 
 @Module({

@@ -11,8 +11,8 @@ export class DossierEntity {
     @Column("date") dateOuverture: string;
     @Column("date", { nullable: true }) dateFermeture: string;
     @Column("text") NomMaitre: string;
-    @Column("text") comparents: number[];
-    @Column("text") bien: number[];
+    @Column("json") comparents: number[];
+    @Column("json") bien: number[];
 
     @OneToMany(() => ActeEntity, actes => actes.dossier)
     actes: ActeEntity;

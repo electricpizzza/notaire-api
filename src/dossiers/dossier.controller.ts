@@ -4,6 +4,8 @@ import { DossierService } from "./dossier.service";
 import { AuthGuard } from './../auth/auh.gaurd';
 import { ComparentService } from "src/comparent/comparent.service";
 import { BienService } from "src/bien/bien.service";
+import { ComptabiliteService } from "src/comptabilite/comptabilite.service";
+import { Comptabilite } from "src/comptabilite/comptabilite.model";
 
 
 
@@ -11,16 +13,19 @@ import { BienService } from "src/bien/bien.service";
 export class DossierController {
     constructor(
         private readonly dossierServeice: DossierService,
+        private readonly comptabiliteService: ComptabiliteService,
     ) { };
     @Post()
-    addDossier(@Body('title') docTitle: string, @Body('description') docDescription: string,
+    async addDossier(@Body('title') docTitle: string, @Body('description') docDescription: string,
         @Body('nature') nature: string, @Body('libelle') libelle: string, @Body('dateOuverture') dateOuverture: string,
         @Body('dateFermeture') dateFermeture: string, @Body('NomMaitre') NomMaitre: string,
         @Body('Bien') biens: number[], @Body('Comparent') comparents: number[],
     ) {
         const doc = new Dossier(null, docTitle, docDescription, nature, libelle, dateOuverture, dateFermeture, NomMaitre, comparents, biens);
-        return this.dossierServeice.inserDossier(doc);
-
+        const newDoc = await this.dossierServeice.inserDossier(doc);
+        const compta = new Comptabilite(newDoc.identifiers[0].id, newDoc.identifiers[0].id, docTitle + docDescription);
+        const comp = await this.comptabiliteService.createCompta(compta)
+        return newDoc
     }
 
 

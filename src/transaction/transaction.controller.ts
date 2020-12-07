@@ -25,11 +25,12 @@ export class TransactionController {
     makeTransaction(
         @Body('comptabilite') comptabilite: number,
         @Body('typeTrans') typeTrans: string,
+        @Body('libelle') libelle: string,
         @Body('typePay') typePay: string,
         @Body('comparent') comparent: number,
         @Body('valeur') valeur: number,
     ) {
-        const trans = new Transaction(null, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
+        const trans = new Transaction(null, libelle, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
         return this.transactionService.makeTransaction(trans);
     }
 
@@ -37,12 +38,13 @@ export class TransactionController {
     updateTransaction(
         @Param('id') id: number,
         @Body('comptabilite') comptabilite: number,
+        @Body('libelle') libelle: string,
         @Body('typeTrans') typeTrans: string,
         @Body('typePay') typePay: string,
         @Body('comparent') comparent: number,
         @Body('valeur') valeur: number,
     ) {
-        const trans = new Transaction(id, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
+        const trans = new Transaction(id, libelle, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
         return this.transactionService.updateTransaction(trans);
     }
 }

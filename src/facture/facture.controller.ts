@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Inovice } from 'src/inovice';
 import { Facture } from './facture.model';
 import { FactureService } from './facture.service';
 
@@ -18,13 +19,21 @@ export class FactureController {
 
     @Post()
     createFacture(
-        @Body('dossier') dossier: number,
+        @Body('termes') termes: string,
+        @Body('dateDevis') dateFacture: Date,
         @Body('client') client: number,
-        @Body('description') description: string,
+        @Body('remisG') remisG: number,
         @Body('total') total: number,
+        @Body('articles') articles: any,
+        @Body('maitre') maitre: string,
     ) {
-        const facture = new Facture(null, dossier, client, description, total);
-        return this.factureService.createFacture(facture);
+        const facture = new Facture(null, termes, dateFacture, client, remisG, total, articles, maitre);
+        const newFacture = this.factureService.createFacture(facture);
+        const inovice = new Inovice()
+
+        //----------------------------------------                                       add payment type
+        const link = inovice.makeInovice("factures", 'RKLSD12', facture.articles, "Benjelloun", facture.client, "Espece", facture.dateFacture, facture.total - facture.remisG);
+        return { newFacture, link }
     }
 
     @Delete(':id')

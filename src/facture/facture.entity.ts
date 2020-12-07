@@ -4,8 +4,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class FactureEntity {
 
     @PrimaryGeneratedColumn('increment') id: number;
-    @Column('int') dossier: number;
-    @Column('int') client: number;
-    @Column('text') description: string;
+    @Column('text') termes: string;
+    @Column('date') dateFacture: Date;
+    @Column('json') client: any;
+    @Column('real') remisG: number;
     @Column('real') total: number;
+    @Column('json') articles: any
+    @Column('text') maitre: string
 }
