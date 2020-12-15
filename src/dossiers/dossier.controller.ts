@@ -16,12 +16,12 @@ export class DossierController {
         private readonly comptabiliteService: ComptabiliteService,
     ) { };
     @Post()
-    async addDossier(@Body('title') docTitle: string, @Body('description') docDescription: string,
+    async addDossier(@Body('title') docTitle: string, @Body('identifiant') identifiant: string, @Body('description') docDescription: string,
         @Body('nature') nature: string, @Body('libelle') libelle: string, @Body('dateOuverture') dateOuverture: string,
         @Body('dateFermeture') dateFermeture: string, @Body('NomMaitre') NomMaitre: string,
         @Body('Bien') biens: number[], @Body('Comparent') comparents: number[],
     ) {
-        const doc = new Dossier(null, docTitle, docDescription, nature, libelle, dateOuverture, dateFermeture, NomMaitre, comparents, biens);
+        const doc = new Dossier(null, identifiant, docTitle, docDescription, nature, libelle, dateOuverture, dateFermeture, NomMaitre, comparents, biens);
         const newDoc = await this.dossierServeice.inserDossier(doc);
         const compta = new Comptabilite(newDoc.identifiers[0].id, newDoc.identifiers[0].id, docTitle + docDescription);
         const comp = await this.comptabiliteService.createCompta(compta)
@@ -34,7 +34,7 @@ export class DossierController {
     // @UseGuards(new AuthGuard())
     getDossiers(@Query() query: any) {
         if (query.dossier)
-            return this.getOneDoc(query.dossier);
+            return this.dossierServeice.getDocByIdentifiant(query.dossier);
         if (query.comp && query.bien) {
             const doc = this.dossierServeice.searchDoc(query.bien, query.comp);
             return doc;
@@ -52,13 +52,13 @@ export class DossierController {
 
     @Put(':id')
     updateDoc(@Param('id') docId: number,
-        @Body('title') docTitle: string, @Body('description') docDescription: string,
+        @Body('title') docTitle: string, @Body('identifiant') identifiant: string, @Body('description') docDescription: string,
         @Body('nature') nature: string, @Body('libelle') libelle: string, @Body('dateOuverture') dateOuverture: string,
         @Body('dateFermeture') dateFermeture: string, @Body('NomMaitre') NomMaitre: string,
         @Body('Bien') biens: number[], @Body('Comparent') comparents: number[],
     ) {
 
-        const dossier = new Dossier(docId, docTitle, docDescription, nature, libelle, dateOuverture, dateFermeture, NomMaitre, comparents, biens)
+        const dossier = new Dossier(docId, identifiant, docTitle, docDescription, nature, libelle, dateOuverture, dateFermeture, NomMaitre, comparents, biens)
         return this.dossierServeice.updateDossier(dossier);;
     }
 

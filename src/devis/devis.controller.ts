@@ -19,6 +19,7 @@ export class DevisController {
 
     @Post()
     createDevis(
+        @Body('reference') reference: string,
         @Body('termes') termes: string,
         @Body('dateDevis') dateDevis: Date,
         @Body('client') client: number,
@@ -26,14 +27,11 @@ export class DevisController {
         @Body('total') total: number,
         @Body('articles') articles: any,
         @Body('maitre') maitre: string,
+        @Body('payment') payment: string,
     ) {
-        const devis = new Devis(null, termes, dateDevis, client, remisG, total, articles, "Benjelloun");
+        const devis = new Devis(null, reference, termes, dateDevis, client, remisG, total, payment, articles, maitre, null);
         const newDevis = this.devisService.createDevis(devis);
-        const inovice = new Inovice()
-
-        //----------------------------------------                                       add payment type
-        const link = inovice.makeInovice("devis", 'RKLSD12', devis.articles, "Benjelloun", devis.client, "Espece", devis.dateDevis, devis.total - devis.remisG)
-        return { newDevis, link }
+        return newDevis;
     }
 
     @Delete(':id')

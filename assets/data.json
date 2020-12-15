@@ -74,5 +74,22 @@
             "libelle":"Villa",
             "value":"villa"
         }
+    ],
+    "typeActe":[
+        {
+            "ref":"act1",
+            "libelle":"Acte de vente",
+            "value":"acteVente"
+        },
+                {
+            "ref":"act2",
+            "libelle":"Acte de loyer",
+            "value":"acteLoyer"
+        },
+                {
+            "ref":"act3",
+            "libelle":"Acte de donation",
+            "value":"actes.Donation"
+        }
     ]
 }

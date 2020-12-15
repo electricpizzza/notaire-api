@@ -18,6 +18,9 @@ export class DevisService {
         return await this.devisRepository.findOne({ where: { id } });
     }
     async createDevis(devis: Devis) {
+
+        const inovice = new Inovice()
+        devis.link = inovice.makeInovice("devis", devis.reference, devis.articles, devis.maitre, devis.client, devis.payment, devis.dateDevis, devis.total - devis.remisG);
         return await this.devisRepository.insert(devis)
     }
 

@@ -5,6 +5,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 export class DossierEntity {
     @PrimaryGeneratedColumn('increment') public id: number;
     @Column('text') title: string;
+    @Column('text') identifiant: string;
     @Column('text') description: string;
     @Column("text") nature: string;
     @Column("text") libelle: string;

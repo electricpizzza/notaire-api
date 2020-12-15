@@ -91,7 +91,7 @@ export class Inovice {
         pdfWriter.end()
 
 
-        return `./uploads/${type === "devis" ? 'devis' : 'factures'}/${type}-${ref + '-' + today}.pdf`;
+        return `./uploads/${type}/${type === "devis" ? 'devis' : 'facture'}-${ref + '-' + today}.pdf`;
     }
 
 

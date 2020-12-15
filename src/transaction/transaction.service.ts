@@ -21,7 +21,7 @@ export class TransactionService {
     }
 
     async getTransactionByCompta(compta: number) {
-        const trans = await this.transactionRepositry.findOne({ where: { comptabilite: compta } });
+        const trans = await this.transactionRepositry.find({ where: { comptabilite: compta } });
         if (!trans) {
             throw new NotFoundException()
         }

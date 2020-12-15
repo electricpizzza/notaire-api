@@ -18,11 +18,10 @@ export class ModelController {
         @Body('libelle') libelle: string,
         @Body('type') type: string,
         @Body('dateRedaction') dateRedaction: Date,
-        @Body('boilerPlate') boilerPlate: any,
+        @Body('boilerplate') boilerPlate: any,
         @Body('champs') champs: any,
     ) {
-        const model = new Model(null, language, redacteur, libelle, type, champs, dateRedaction, " ");
-        // return model;
+        const model = new Model(null, language, redacteur, libelle, type, champs, new Date(), boilerPlate);
         return this.modelService.createModel(model);
     }
 

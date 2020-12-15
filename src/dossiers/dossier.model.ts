@@ -2,6 +2,7 @@ export class Dossier {
 
     constructor(
         public id: number,
+        public identifiant: string,
         public title: string,
         public description: string,
         public nature: string,

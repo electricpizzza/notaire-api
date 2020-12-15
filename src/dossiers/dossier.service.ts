@@ -37,6 +37,14 @@ export class DossierService {
         return dossier;
     }
 
+    async getDocByIdentifiant(identifiant: string) {
+        const dossier = await this.dossierRepository.findOne({ where: { identifiant } });
+        if (!dossier) {
+            throw new NotFoundException("Dossier Introuvable");
+        }
+        return dossier;
+    }
+
     async searchDoc(libelle?: any, comp?: any) {
         const bien = await this.bienRepository.createQueryBuilder('bien')
             .where("bien.libelle like :libelle", { libelle: `%${libelle}%` })

@@ -19,6 +19,7 @@ export class FactureController {
 
     @Post()
     createFacture(
+        @Body('reference') reference: string,
         @Body('termes') termes: string,
         @Body('dateDevis') dateFacture: Date,
         @Body('client') client: number,
@@ -26,14 +27,11 @@ export class FactureController {
         @Body('total') total: number,
         @Body('articles') articles: any,
         @Body('maitre') maitre: string,
+        @Body('payment') payment: string,
     ) {
-        const facture = new Facture(null, termes, dateFacture, client, remisG, total, articles, maitre);
+        const facture = new Facture(null, reference, termes, dateFacture, client, remisG, total, payment, articles, maitre, null);
         const newFacture = this.factureService.createFacture(facture);
-        const inovice = new Inovice()
-
-        //----------------------------------------                                       add payment type
-        const link = inovice.makeInovice("factures", 'RKLSD12', facture.articles, "Benjelloun", facture.client, "Espece", facture.dateFacture, facture.total - facture.remisG);
-        return { newFacture, link }
+        return newFacture;
     }
 
     @Delete(':id')

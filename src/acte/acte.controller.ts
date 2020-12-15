@@ -23,9 +23,10 @@ export class ActeController {
         @Body('contenu') contenu: any,
         @Body('dateRedaction') dateRedaction: Date,
         @Body('fichier') fichier: string,
-        @Body('dossierId') model: any,
+        @Body('dossierId') dossierId: any,
+        @Body('model') model: any,
     ) {
-        const acte = new Acte(null, libelle, redacteur, contenu, dateRedaction, fichier, model);
+        const acte = new Acte(null, libelle, redacteur, contenu, new Date(), fichier, model);
         return this.acteService.createActe(acte)
     }
 
