@@ -11,4 +11,5 @@ export class DeviseEntity {
     @Column('real') total: number;
     @Column('json') articles: any
     @Column('text') maitre: string
+    @Column('text') link: string
 }
