@@ -30,4 +30,17 @@ export class ModelService {
             return model;
     }
 
+    async updateModel(model: Model) {
+        const newModel = await this.modelRepository.findOne({ where: { id: model.id } });
+        if (!newModel) {
+            throw new NotFoundException();
+        }
+        newModel.type = model.type;
+        newModel.champs = JSON.stringify(model.champs);
+        newModel.boilerPlate = model.boilerPlate;
+        newModel.redacteur = model.redacteur;
+
+        return await this.modelRepository.update(model.id, newModel);
+    }
+
 }

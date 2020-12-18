@@ -1,4 +1,4 @@
-import { BadGatewayException, BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadGatewayException, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm'
 import { ActeEntity } from './acte.entity';
@@ -31,26 +31,36 @@ export class ActeService {
     async createActe(acte: Acte) {
 
         const comparents = await this.comparentRepository.find();
+        const biens = await this.bienRepository.find();
+        let reg;
         let document = await (await this.modelRepository.findOne({ where: { id: acte.model } })).boilerPlate;
-
         acte.contenu.forEach(contenu => {
             switch (contenu.type) {
                 case "comparent":
                     const comparent = comparents.find(comp => comp.id = contenu.value[0]);
-                    document = document.replace(`[${contenu.name}][NOM]`, comparent.nom);
-                    document = document.replace(`[${contenu.name}][PRENOM]`, '');
+                    reg = new RegExp(`&lt;${contenu.name}&gt;&lt;NOM&lt;`, "g");
+                    document = document.replace(reg, comparent.nom);
+                    reg = new RegExp(`&lt;${contenu.name}&gt;&lt;PRENOM&lt;`, "g");
+                    document = document.replace(reg, '');
                     break;
                 case "bien":
-                    document = document.replace(`[${contenu.name}][LIBELLE]`, contenu.value)
+                    const bien = biens.find(b => b.id = contenu.value[0]);
+                    reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                    document = document.replace(`[${contenu.name}][LIBELLE]`, bien.libelle);
                     break;
 
-                default:
-                    document = document.replace(`[${contenu.name}]`, contenu.value);
+                case "text":
+                    //reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                    reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                    console.log(reg, contenu.name);
+
+                    document = document.replace(reg, contenu.value);
                     break;
             }
         });
         acte.contenu = JSON.stringify(acte.contenu);
         acte.fichier = document;
+        console.log(document);
         return await this.acteRepository.insert(acte);
     }
 
