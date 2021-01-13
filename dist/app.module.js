@@ -25,6 +25,7 @@ const action_module_1 = require("./action/action.module");
 const config_1 = require("@nestjs/config");
 const comptabilite_module_1 = require("./comptabilite/comptabilite.module");
 const transaction_module_1 = require("./transaction/transaction.module");
+const service_module_1 = require("./service/service.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -55,7 +56,9 @@ AppModule = __decorate([
             facture_module_1.FactureModule,
             action_module_1.ActionModule,
             comptabilite_module_1.ComptabiliteModule,
-            transaction_module_1.TransactionModule
+            transaction_module_1.TransactionModule,
+            service_module_1.ServiceModule,
+            service_module_1.ServiceModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

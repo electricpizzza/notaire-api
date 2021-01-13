@@ -27,3 +27,6 @@ __________________
 
 INSERT INTO `model_entity` (`id`, `language`, `redacteur`, `libelle`, `type`, `champs`, `boilerPlate`) VALUES
 (1, 'Fr', 'Dinar zakariae', 'Acte de vente Appartement', 'acteVente', '[{\"name\":\"DATE\",\"type\":\"text\",\"label\":\"DATE\"},{\"name\":\"VENDEUR\",\"type\":\"text\",\"label\":\"VENDEUR\"},{\"name\":\"ACHETEUR\",\"type\":\"text\",\"label\":\"ACHETEUR\"},{\"name\":\"MONTANT\",\"type\":\"text\",\"label\":\"MONTANT\"}]', '<h1>                         Acte de vente Appartement</h1><p>Date : &lt;DATE&gt;</p><p></p><p></p><p>Je soussigné, &lt;VENDEUR&gt;, le vendeur, vends à l’acheteur soussigné &lt;ACHETEUR&gt; pour la somme de &lt;MONTANT&gt;, l’article suivant :</p><p></p><p>Le vendeur confirme que ces informations correspondent bien au bien vendu pour autant qu’il sache.</p><p>L’acheteur accepte cet acte de vente et comprend que l’article est vendu “en état” et sans aucune garantie.</p><p></p><p></p><p></p><p>VENDEUR</p><p>&lt;VENDEUR&gt;<br>FES,</p><p>__________________</p><p></p><p>ACHETEUR</p><p>&lt;ACHETEUR&gt;,<br>FES,</p><p>__________________</p>');
+
+
+{"comptabilite":"1","libelle":"Conservation Foncière","typeTrans":"Entrée","typePay":"Espece","comparent":1,"valeur":"1223","service":{"id":2,"libelle":"Conservation Foncière","tva":0,"partie":"etude","type":"depense"}}

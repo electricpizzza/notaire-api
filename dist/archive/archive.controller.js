@@ -76,7 +76,7 @@ __decorate([
             destination: './uploads/',
             filename: function (req, file, cb) {
                 const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1];
-                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix);
+                cb(null, file.originalname);
             }
         })
     })),
@@ -95,7 +95,7 @@ __decorate([
             destination: './uploads/',
             filename: (req, file, cb) => {
                 const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1];
-                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix);
+                cb(null, file.originalname);
             }
         })
     })),

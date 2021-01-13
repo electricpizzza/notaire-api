@@ -29,12 +29,12 @@ let TransactionController = class TransactionController {
     getByComptabilite(compta) {
         return this.transactionService.getTransactionByCompta(compta);
     }
-    makeTransaction(comptabilite, typeTrans, libelle, typePay, comparent, valeur) {
-        const trans = new transaction_model_1.Transaction(null, libelle, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
+    makeTransaction(comptabilite, typeTrans, service, libelle, typePay, comparent, valeur) {
+        const trans = new transaction_model_1.Transaction(null, libelle, service, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
         return this.transactionService.makeTransaction(trans);
     }
-    updateTransaction(id, comptabilite, libelle, typeTrans, typePay, comparent, valeur) {
-        const trans = new transaction_model_1.Transaction(id, libelle, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
+    updateTransaction(id, comptabilite, libelle, service, typeTrans, typePay, comparent, valeur) {
+        const trans = new transaction_model_1.Transaction(id, libelle, service, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
         return this.transactionService.updateTransaction(trans);
     }
 };
@@ -62,12 +62,13 @@ __decorate([
     common_1.Post(),
     __param(0, common_1.Body('comptabilite')),
     __param(1, common_1.Body('typeTrans')),
-    __param(2, common_1.Body('libelle')),
-    __param(3, common_1.Body('typePay')),
-    __param(4, common_1.Body('comparent')),
-    __param(5, common_1.Body('valeur')),
+    __param(2, common_1.Body('service')),
+    __param(3, common_1.Body('libelle')),
+    __param(4, common_1.Body('typePay')),
+    __param(5, common_1.Body('comparent')),
+    __param(6, common_1.Body('valeur')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, String, String, Number, Number]),
+    __metadata("design:paramtypes", [Number, String, Object, String, String, Number, Number]),
     __metadata("design:returntype", void 0)
 ], TransactionController.prototype, "makeTransaction", null);
 __decorate([
@@ -75,12 +76,13 @@ __decorate([
     __param(0, common_1.Param('id')),
     __param(1, common_1.Body('comptabilite')),
     __param(2, common_1.Body('libelle')),
-    __param(3, common_1.Body('typeTrans')),
-    __param(4, common_1.Body('typePay')),
-    __param(5, common_1.Body('comparent')),
-    __param(6, common_1.Body('valeur')),
+    __param(3, common_1.Body('service')),
+    __param(4, common_1.Body('typeTrans')),
+    __param(5, common_1.Body('typePay')),
+    __param(6, common_1.Body('comparent')),
+    __param(7, common_1.Body('valeur')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, String, String, String, Number, Number]),
+    __metadata("design:paramtypes", [Number, Number, String, Object, String, String, Number, Number]),
     __metadata("design:returntype", void 0)
 ], TransactionController.prototype, "updateTransaction", null);
 TransactionController = __decorate([

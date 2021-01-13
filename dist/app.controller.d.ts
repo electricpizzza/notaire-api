@@ -9,4 +9,5 @@ export declare class AppController {
     getFacture(file: any, resp: any): any;
     getFile(file: any, resp: any): any;
     getArchive(file: any, resp: any): any;
+    getRecu(file: any, resp: any): any;
 }

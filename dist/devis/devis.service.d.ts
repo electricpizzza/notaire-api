@@ -9,4 +9,5 @@ export declare class DevisService {
     createDevis(devis: Devis): Promise<import("typeorm").InsertResult>;
     updateDevis(devis: Devis): Promise<import("typeorm").UpdateResult>;
     deletDevis(id: number): Promise<import("typeorm").DeleteResult>;
+    getCount(): Promise<number>;
 }

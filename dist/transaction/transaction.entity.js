@@ -22,6 +22,10 @@ __decorate([
     __metadata("design:type", String)
 ], TransactionEntity.prototype, "libelle", void 0);
 __decorate([
+    typeorm_1.Column('json'),
+    __metadata("design:type", Object)
+], TransactionEntity.prototype, "service", void 0);
+__decorate([
     typeorm_1.Column('int'),
     __metadata("design:type", Number)
 ], TransactionEntity.prototype, "comptabilite", void 0);

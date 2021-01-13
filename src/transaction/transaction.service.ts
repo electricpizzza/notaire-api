@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Inovice } from 'src/inovice';
 import { Repository } from 'typeorm';
 import { TransactionEntity } from './transaction.entity';
 import { Transaction } from './transaction.model';
@@ -29,7 +30,13 @@ export class TransactionService {
     }
 
     async makeTransaction(trans: Transaction) {
-        return await this.transactionRepositry.insert(trans);
+        let recu = null;
+        if (trans.service.type === "recette") {
+            const invoice = new Inovice();
+            recu = invoice.createRecu();
+        }
+        const transaction = await this.transactionRepositry.insert(trans);
+        return { transaction, recu };
     }
 
     async updateTransaction(trans: Transaction) {

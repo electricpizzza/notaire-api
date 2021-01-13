@@ -4,6 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class TransactionEntity {
     @PrimaryGeneratedColumn('increment') id: number;
     @Column('text') libelle: string;
+    @Column('json') service: any;
     @Column('int') comptabilite: number;
     @Column('text') typeTrans: string;
     @Column('text') typePay: string;

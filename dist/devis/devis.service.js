@@ -52,6 +52,12 @@ let DevisService = class DevisService {
         }
         return await this.devisRepository.delete(id);
     }
+    async getCount() {
+        console.log('count');
+        const count = await this.devisRepository.createQueryBuilder('devis')
+            .where('devis.dateDevis like :date', { date: `%${new Date().getFullYear()}-%` }).getCount();
+        return count;
+    }
 };
 DevisService = __decorate([
     common_1.Injectable(),

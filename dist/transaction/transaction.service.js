@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransactionService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const inovice_1 = require("../inovice");
 const typeorm_2 = require("typeorm");
 const transaction_entity_1 = require("./transaction.entity");
 let TransactionService = class TransactionService {
@@ -39,7 +40,13 @@ let TransactionService = class TransactionService {
         return trans;
     }
     async makeTransaction(trans) {
-        return await this.transactionRepositry.insert(trans);
+        let recu = null;
+        if (trans.service.type === "recette") {
+            const invoice = new inovice_1.Inovice();
+            recu = invoice.createRecu();
+        }
+        const transaction = await this.transactionRepositry.insert(trans);
+        return { transaction, recu };
     }
     async updateTransaction(trans) {
         const newTrans = await this.transactionRepositry.findOne({ where: { id: trans.id } });

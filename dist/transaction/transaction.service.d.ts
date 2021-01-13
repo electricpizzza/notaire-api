@@ -7,7 +7,10 @@ export declare class TransactionService {
     getallTransactions(): Promise<TransactionEntity[]>;
     getOneTransaction(id: number): Promise<TransactionEntity>;
     getTransactionByCompta(compta: number): Promise<TransactionEntity[]>;
-    makeTransaction(trans: Transaction): Promise<import("typeorm").InsertResult>;
+    makeTransaction(trans: Transaction): Promise<{
+        transaction: import("typeorm").InsertResult;
+        recu: any;
+    }>;
     updateTransaction(trans: Transaction): Promise<import("typeorm").UpdateResult>;
     cancelTransaction(id: number): Promise<import("typeorm").DeleteResult>;
 }

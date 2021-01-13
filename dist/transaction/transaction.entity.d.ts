@@ -1,6 +1,7 @@
 export declare class TransactionEntity {
     id: number;
     libelle: string;
+    service: any;
     comptabilite: number;
     typeTrans: string;
     typePay: string;

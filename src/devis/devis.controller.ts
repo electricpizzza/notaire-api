@@ -12,9 +12,16 @@ export class DevisController {
         return this.devisService.getAllDevis()
     }
 
+
+
+    @Get('/count')
+    getDevisCount() {
+        return this.devisService.getCount();
+    }
+
     @Get(':id')
     getOneDevis(@Param('id') id: number) {
-        return this.getOneDevis(id)
+        return this.devisService.getOneDevis(id)
     }
 
     @Post()
@@ -38,4 +45,5 @@ export class DevisController {
     deleteDevis(@Param('id') id: number) {
         return this.devisService.deletDevis(id)
     }
+
 }

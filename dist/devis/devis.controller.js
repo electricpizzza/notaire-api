@@ -24,8 +24,11 @@ let DevisController = class DevisController {
     getAllDevis() {
         return this.devisService.getAllDevis();
     }
+    getDevisCount() {
+        return this.devisService.getCount();
+    }
     getOneDevis(id) {
-        return this.getOneDevis(id);
+        return this.devisService.getOneDevis(id);
     }
     createDevis(reference, termes, dateDevis, client, remisG, total, articles, maitre, payment) {
         const devis = new devis_model_1.Devis(null, reference, termes, dateDevis, client, remisG, total, payment, articles, maitre, null);
@@ -42,6 +45,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], DevisController.prototype, "getAllDevis", null);
+__decorate([
+    common_1.Get('/count'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DevisController.prototype, "getDevisCount", null);
 __decorate([
     common_1.Get(':id'),
     __param(0, common_1.Param('id')),
