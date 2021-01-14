@@ -29,9 +29,9 @@ let TransactionController = class TransactionController {
     getByComptabilite(compta) {
         return this.transactionService.getTransactionByCompta(compta);
     }
-    makeTransaction(comptabilite, typeTrans, service, libelle, typePay, comparent, valeur) {
+    makeTransaction(comptabilite, typeTrans, service, libelle, typePay, comparent, valeur, numCheque) {
         const trans = new transaction_model_1.Transaction(null, libelle, service, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
-        return this.transactionService.makeTransaction(trans);
+        return this.transactionService.makeTransaction(trans, numCheque);
     }
     updateTransaction(id, comptabilite, libelle, service, typeTrans, typePay, comparent, valeur) {
         const trans = new transaction_model_1.Transaction(id, libelle, service, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
@@ -67,8 +67,9 @@ __decorate([
     __param(4, common_1.Body('typePay')),
     __param(5, common_1.Body('comparent')),
     __param(6, common_1.Body('valeur')),
+    __param(7, common_1.Body('numCheque')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, Object, String, String, Number, Number]),
+    __metadata("design:paramtypes", [Number, String, Object, String, String, Number, Number, Number]),
     __metadata("design:returntype", void 0)
 ], TransactionController.prototype, "makeTransaction", null);
 __decorate([

@@ -29,11 +29,11 @@ export class TransactionService {
         return trans;
     }
 
-    async makeTransaction(trans: Transaction) {
+    async makeTransaction(trans: Transaction, numCheque) {
         let recu = null;
         if (trans.service.type === "recette") {
             const invoice = new Inovice();
-            recu = invoice.createRecu();
+            recu = invoice.createRecu(trans.comparent, trans.valeur, trans.libelle, null, numCheque, trans.typePay);
         }
         const transaction = await this.transactionRepositry.insert(trans);
         return { transaction, recu };

@@ -7,7 +7,7 @@ export declare class TransactionService {
     getallTransactions(): Promise<TransactionEntity[]>;
     getOneTransaction(id: number): Promise<TransactionEntity>;
     getTransactionByCompta(compta: number): Promise<TransactionEntity[]>;
-    makeTransaction(trans: Transaction): Promise<{
+    makeTransaction(trans: Transaction, numCheque: any): Promise<{
         transaction: import("typeorm").InsertResult;
         recu: any;
     }>;

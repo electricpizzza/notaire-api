@@ -30,9 +30,10 @@ export class TransactionController {
         @Body('typePay') typePay: string,
         @Body('comparent') comparent: number,
         @Body('valeur') valeur: number,
+        @Body('numCheque') numCheque: number,
     ) {
         const trans = new Transaction(null, libelle, service, comptabilite, typeTrans, typePay, comparent, valeur, new Date());
-        return this.transactionService.makeTransaction(trans);
+        return this.transactionService.makeTransaction(trans, numCheque);
     }
 
     @Put(':id')

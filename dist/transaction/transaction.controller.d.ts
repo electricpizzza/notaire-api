@@ -5,7 +5,7 @@ export declare class TransactionController {
     getAll(): Promise<import("./transaction.entity").TransactionEntity[]>;
     getOneTrans(id: number): Promise<import("./transaction.entity").TransactionEntity>;
     getByComptabilite(compta: number): Promise<import("./transaction.entity").TransactionEntity[]>;
-    makeTransaction(comptabilite: number, typeTrans: string, service: any, libelle: string, typePay: string, comparent: number, valeur: number): Promise<{
+    makeTransaction(comptabilite: number, typeTrans: string, service: any, libelle: string, typePay: string, comparent: number, valeur: number, numCheque: number): Promise<{
         transaction: import("typeorm").InsertResult;
         recu: any;
     }>;

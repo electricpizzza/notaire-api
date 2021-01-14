@@ -39,11 +39,11 @@ let TransactionService = class TransactionService {
         }
         return trans;
     }
-    async makeTransaction(trans) {
+    async makeTransaction(trans, numCheque) {
         let recu = null;
         if (trans.service.type === "recette") {
             const invoice = new inovice_1.Inovice();
-            recu = invoice.createRecu();
+            recu = invoice.createRecu(trans.comparent, trans.valeur, trans.libelle, null, numCheque, trans.typePay);
         }
         const transaction = await this.transactionRepositry.insert(trans);
         return { transaction, recu };

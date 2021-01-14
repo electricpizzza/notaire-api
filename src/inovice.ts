@@ -1,5 +1,4 @@
 import * as hummus from 'hummus'
-import { Brackets } from 'typeorm';
 
 export class Inovice {
     makeInovice(type: string, ref, articles: any[], maitre: string, client: any, payment: string, jusqua, total: number) {
@@ -13,13 +12,13 @@ export class Inovice {
         cxt.drawImage(5, 0, './assets/letterhead.jpg');
 
         const textOptions = {
-            font: pdfWriter.getFontForFile('./assets/SpecialElite-Regular.ttf'),
+            font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
             size: 16,
             colorspace: 'gray',
             color: 0x00
         };
         const tableTextOption = {
-            font: pdfWriter.getFontForFile('./assets/SpecialElite-Regular.ttf'),
+            font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
             size: 12,
             colorspace: 'gray',
             color: 0x00,
@@ -27,17 +26,16 @@ export class Inovice {
         }
 
 
-        cxt.writeText((type === "devis" ? 'Devis' : 'Facture') + " : " + ref, 380, 750, textOptions)
-            .writeText("Date: " + today, 380, 730, textOptions)
+        cxt.writeText((type === "devis" ? 'Devis' : 'Facture') + " : " + ref, 80, 650, textOptions)
+            .writeText("Date: " + date.toLocaleDateString(), 80, 630, textOptions)
         textOptions.font = 12;
         cxt.writeText(client.address, 310, 655, textOptions)
             .writeText("FES- MAROC", 310, 635, textOptions)
 
 
-        cxt.writeText(ref, 35, 570, tableTextOption)
-            .writeText("Maitre " + maitre, 130, 570, tableTextOption)
-            .writeText(payment, 370, 570, tableTextOption)
-            .writeText(jusqua, 450, 570, tableTextOption)
+        cxt.writeText("Maitre " + maitre, 35, 570, tableTextOption)
+            .writeText('Mode de paiement : ' + payment, 170, 570, tableTextOption)
+            .writeText((type === "devis" ? "Valable Jusqu'à " : "") + new Date(jusqua).toLocaleDateString(), 350, 570, tableTextOption)
 
         let posHeight = 520;
 
@@ -80,10 +78,9 @@ export class Inovice {
 
 
         // total ht, tva & ttc
-        cxt.writeText(`${total} DHs`, 450, 230, tableTextOption)
+        cxt.writeText(`${total} DHs`, 470, 230, tableTextOption)
             .writeText('Total TTC. : ', 370, 230, tableTextOption)
-        //.writeText('20%', 450, 210, tableTextOption)
-        //.writeText(`${total} DHs`, 450, 190, tableTextOption)
+
 
 
         pdfWriter.writePage(page);
@@ -106,13 +103,13 @@ export class Inovice {
         cxt.drawImage(10, 100, './assets/devis.png');
 
         const textOptions = {
-            font: pdfWriter.getFontForFile('./assets/SpecialElite-Regular.ttf'),
+            font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
             size: 16,
             colorspace: 'gray',
             color: 0x00
         };
         const tableTextOption = {
-            font: pdfWriter.getFontForFile('./assets/SpecialElite-Regular.ttf'),
+            font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
             size: 12,
             colorspace: 'gray',
             color: 0x00,
@@ -178,7 +175,7 @@ export class Inovice {
         pdfWriter.end()
     }
 
-    createRecu() {
+    createRecu(client, somme, libelle, dateTrans, numCheque, typePay) {
         const date = new Date()
         const today = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
@@ -186,30 +183,35 @@ export class Inovice {
         const page = pdfWriter.createPage(0, 0, 595, 332)
         const cxt = pdfWriter.startPageContentContext(page);
 
-        cxt.drawImage(30, 230, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } });
+        cxt.drawImage(30, 230, './assets/logob.png', { transformation: { width: 100, height: 100 } });
 
         const tableTextOption = {
-            font: pdfWriter.getFontForFile('./assets/SpecialElite-Regular.ttf'),
+            font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
             size: 12,
             colorspace: 'gray',
             color: 0x00,
             maxWidth: 300
         }
 
-        cxt.writeText('Reçu de       ' + today, 300, 250, tableTextOption)
-            .writeText('La somme de      ' + 3000 + '  DHs', 300, 200, tableTextOption)
-            .writeText('Pour      ', 300, 150, tableTextOption)
-            .writeText('Fait à Fès le      ' + today, 300, 150, tableTextOption)
+        cxt.writeText('Reçu de    DINAR ZAKARIAE   ', 300, 250, tableTextOption)
+            .writeText('La somme de      ' + somme + '  DHs', 300, 200, tableTextOption)
+            .writeText('Pour    ' + libelle, 300, 150, tableTextOption)
+            .writeText('Fait à Fès, le      ' + (dateTrans === null ? new Date().toLocaleDateString() : dateTrans), 350, 50, tableTextOption)
 
+        if (typePay === 'Cheque') {
+            cxt.writeText('Réf. Folio N˚ à Rappeler', 20, 175, tableTextOption)
+                .writeText('Cheque N˚ :  ' + numCheque, 20, 150, tableTextOption)
+        }
+        else {
+            cxt.writeText('Réf. Folio N˚ à Rappeler', 20, 175, tableTextOption)
+                .writeText('Mode de paiement :  ESPECE', 20, 150, tableTextOption)
+        }
 
-        cxt.writeText('Réf. Folio N˚ à Rappeler', 20, 175, tableTextOption)
-            .writeText('Cheque N˚ ....................................', 20, 150, tableTextOption)
-            .writeText('Sur ............................................', 20, 125, tableTextOption)
-        cxt.writeText('Cheque N˚ ....................................', 20, 100, tableTextOption)
-            .writeText('Sur ............................................', 20, 75, tableTextOption)
+        // cxt.writeText('Cheque N˚ ....................................', 20, 100, tableTextOption)
+        //     .writeText('Sur ............................................', 20, 75, tableTextOption)
 
-        cxt.writeText('Numéraire : .................................', 20, 50, tableTextOption)
-            .writeText('Total : ............................', 70, 25, tableTextOption)
+        cxt//.writeText('Numéraire : .................................', 20, 50, tableTextOption)
+            .writeText('Total :  ' + somme + 'DHs', 100, 25, tableTextOption)
 
 
 

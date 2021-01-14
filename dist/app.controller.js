@@ -14,38 +14,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
-const platform_express_1 = require("@nestjs/platform-express");
 const app_service_1 = require("./app.service");
-const multer = require("multer");
-const hummus = require("hummus");
-const recu_1 = require("./recu");
+const inovice_1 = require("./inovice");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
     getHello() {
-        const articles = [
-            { ref: 'REF23', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
-            { ref: 'RE5F45', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
-            { ref: 'REF444', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
-            { ref: 'REF3460', description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like" },
-        ];
-        const recu = new recu_1.Recu();
         return this.appService.getHello();
     }
     getData() {
         return this.appService.getData();
-    }
-    uploadFile(file, data) {
-        const pdfWriter = hummus.createWriter('./uploads/archive/archive.pdf');
-        const page = pdfWriter.createPage(0, 0, 595, 842);
-        const ctx = pdfWriter.startPageContentContext(page);
-        ctx.drawImage(10, 742, './assets/logo.jpeg', { transformation: { width: 100, height: 100 } });
-        const textOptions = { size: 104, colorspace: 'gray', color: 0x00 };
-        ctx.writeText("text text", 120, 512, textOptions);
-        pdfWriter.writePage(page);
-        pdfWriter.end();
-        return file;
     }
     getDevis(file, resp) {
         return resp.sendFile(file, { root: 'uploads/devis' });
@@ -62,6 +41,10 @@ let AppController = class AppController {
     getRecu(file, resp) {
         return resp.sendFile(file, { root: 'uploads/recu' });
     }
+    createRecu(client, libelle, somme, dateTrans, numCheque, typePay) {
+        const invoice = new inovice_1.Inovice();
+        return invoice.createRecu('ZAKARIAE DINAR', somme, libelle, dateTrans, numCheque, typePay);
+    }
 };
 __decorate([
     common_1.Get(),
@@ -75,22 +58,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getData", null);
-__decorate([
-    common_1.Post(),
-    common_1.UseInterceptors(platform_express_1.FileInterceptor('files', {
-        storage: multer.diskStorage({
-            destination: './uploads/archive/trash',
-            filename: function (req, file, cb) {
-                const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1];
-                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix);
-            }
-        })
-    })),
-    __param(0, common_1.UploadedFile()), __param(1, common_1.Body('data')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "uploadFile", null);
 __decorate([
     common_1.Get('uploads/devis/:file'),
     __param(0, common_1.Param('file')), __param(1, common_1.Res()),
@@ -126,6 +93,18 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getRecu", null);
+__decorate([
+    common_1.Post('/recu'),
+    __param(0, common_1.Body('client')),
+    __param(1, common_1.Body('libelle')),
+    __param(2, common_1.Body('somme')),
+    __param(3, common_1.Body('dateTrans')),
+    __param(4, common_1.Body('numCheque')),
+    __param(5, common_1.Body('typePay')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Number, String, Number, String]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "createRecu", null);
 AppController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [app_service_1.AppService])
