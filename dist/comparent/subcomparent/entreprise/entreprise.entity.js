@@ -28,6 +28,10 @@ __decorate([
 __decorate([
     typeorm_1.Column('text'),
     __metadata("design:type", String)
+], EntrepriseCom.prototype, "raisonSocialeAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
 ], EntrepriseCom.prototype, "ice", void 0);
 __decorate([
     typeorm_1.Column('text'),
@@ -42,8 +46,28 @@ __decorate([
     __metadata("design:type", String)
 ], EntrepriseCom.prototype, "Adresse", void 0);
 __decorate([
-    typeorm_1.Column('int'),
-    __metadata("design:type", Array)
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], EntrepriseCom.prototype, "AdresseAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], EntrepriseCom.prototype, "IDF", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], EntrepriseCom.prototype, "RS", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], EntrepriseCom.prototype, "tel", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], EntrepriseCom.prototype, "capital", void 0);
+__decorate([
+    typeorm_1.Column('json'),
+    __metadata("design:type", Object)
 ], EntrepriseCom.prototype, "representant", void 0);
 EntrepriseCom = __decorate([
     typeorm_1.Entity()

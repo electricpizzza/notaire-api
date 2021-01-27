@@ -11,10 +11,21 @@ export class BienEntity {
     @Column('text') address: string;
     @Column('text') ville: string;
     @Column('text') Superficie: string;
+    @Column('text') detailSuperficie: string;
     @Column('int') nb_piece: number;
     @Column('int') etage: number;
     @Column('text') Immeuble: string;
     @Column('text') terrainType: string;
     @Column('text') ancfcc: string;
     @Column('real') valeur: number;
+    @Column('json') details: any;
+
+    // CHAMPS ARABE
+
+    @Column('text') typeAr: string;
+    @Column('text') descriptionAr: string;
+    @Column('text') addressAr: string;
+    @Column('text') villeAr: string;
+    @Column('text') detailSuperficieAr: string;
+
 }

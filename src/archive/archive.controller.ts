@@ -25,7 +25,8 @@ export class ArchiveController {
             destination: './uploads/',
             filename: function (req, file, cb) {
                 const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1]
-                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
+                const today = new Date();
+                cb(null, file.originalname.split('.')[0] + '-' + today.getDate() + '-' + today.getMonth() + 1 + '-' + today.getFullYear() + '.' + uniqueSuffix)
             }
         })
     }))
@@ -35,9 +36,12 @@ export class ArchiveController {
         @Body('dossier') dossier: number,
         @UploadedFiles() files
     ) {
+        console.log('test');
+
         const filesPath = []
         const today = new Date();
         const mainFile = `./uploads/archive/archive-${titre.replace(' ', '-')}-${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}.pdf`;
+        console.log(mainFile);
         const pdfWriter = hummus.createWriter(mainFile);
         files.forEach(file => {
             filesPath.push(file.path);
@@ -50,6 +54,9 @@ export class ArchiveController {
                 pdfWriter.appendPDFPagesFromPDF(file.path)
         });
         pdfWriter.end();
+        console.log("fin");
+
+
         const archive = new Archive(null, titre, description, filesPath, dossier, mainFile)
         return this.archiveService.createArchive(archive);
     }

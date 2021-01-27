@@ -44,7 +44,23 @@ __decorate([
 __decorate([
     typeorm_1.Column('text'),
     __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "nationaliteAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
 ], PersonPhysiqiueEntity.prototype, "fonction", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "fonctionAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "Adresse", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "AdresseAr", void 0);
 __decorate([
     typeorm_1.Column('text'),
     __metadata("design:type", String)
@@ -72,6 +88,14 @@ __decorate([
 __decorate([
     typeorm_1.Column('text'),
     __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "lieuxNaissance", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "lieuxNaissanceAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
 ], PersonPhysiqiueEntity.prototype, "nomCompanionFr", void 0);
 __decorate([
     typeorm_1.Column('text'),
@@ -89,6 +113,10 @@ __decorate([
     typeorm_1.Column('date'),
     __metadata("design:type", Date)
 ], PersonPhysiqiueEntity.prototype, "IdentificationValable", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], PersonPhysiqiueEntity.prototype, "tel", void 0);
 PersonPhysiqiueEntity = __decorate([
     typeorm_1.Entity()
 ], PersonPhysiqiueEntity);

@@ -59,7 +59,7 @@ let BienService = class BienService {
         newBien.terrainType = bien.terrainType;
         newBien.ancfcc = bien.ancfcc;
         newBien.valeur = bien.valeur;
-        return this.bienRepository.update(bien.id, newBien);
+        return this.bienRepository.update(bien.id, bien);
     }
     async deleteBien(id) {
         return await this.bienRepository.delete(id);

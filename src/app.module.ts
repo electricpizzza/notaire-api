@@ -17,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ComptabiliteModule } from './comptabilite/comptabilite.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { ServiceModule } from './service/service.module';
+import { AveuModule } from './aveu/aveu.module';
 
 @Module({
   imports: [
@@ -47,7 +48,8 @@ import { ServiceModule } from './service/service.module';
     ComptabiliteModule,
     TransactionModule,
     ServiceModule,
-    ServiceModule
+    ServiceModule,
+    AveuModule
   ],
   controllers: [AppController],
   providers: [AppService],

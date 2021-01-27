@@ -14,12 +14,16 @@ export class EntrepriseCom {
     comparent: ComparentEntity;
 
     @Column('text') raisonSociale: string;
+    @Column('text') raisonSocialeAr: string;
     @Column('text') ice: string;
     @Column('text') rc: string;
     @Column('int') cnss: number;
     @Column('text') Adresse: string;
-
-
-    @Column('int') representant: number[];
+    @Column('text') AdresseAr: string;
+    @Column('text') IDF: string;
+    @Column('text') RS: string;
+    @Column('text') tel: string;
+    @Column('text') capital: string;
+    @Column('json') representant: any;
 
 }

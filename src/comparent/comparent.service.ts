@@ -9,6 +9,8 @@ import { MineurEntity } from './subcomparent/mineur/mineur.entity';
 import { PersonPhisique } from './subcomparent/person-phisique/person-phisique.model';
 import { Mineur } from './subcomparent/mineur/mineur.model';
 import { Comparent } from './comparent.model';
+import { BanqueEntity } from './subcomparent/banque/banque.entity';
+import { Banque } from './subcomparent/banque/banque.model';
 
 
 @Injectable()
@@ -22,11 +24,24 @@ export class ComparentService {
         private personRepository: Repository<PersonPhysiqiueEntity>,
         @InjectRepository(MineurEntity)
         private mineurRepository: Repository<MineurEntity>,
+        @InjectRepository(BanqueEntity)
+        private banqueRepository: Repository<BanqueEntity>,
     ) { };
 
     async getAllComparent() {
-        const comparents = await this.comparentRepository.find();
+        const comparents = await this.comparentRepository //.find();
+            .createQueryBuilder("comparent")
+            .where("comparent.type in ('PP','PPM','PM')")
+            .getMany();
         return comparents;
+    }
+
+    async getBanques() {
+        const banques = await this.comparentRepository
+            .createQueryBuilder("comparent")
+            .where("comparent.type = 'B'")
+            .getMany();
+        return banques;
     }
 
     async getOneComparent(id: number) {
@@ -41,6 +56,9 @@ export class ComparentService {
             comparentInfo = await this.entrepriseRepository.find({ where: { comparent: comparent[0].id } }) : [];
         comparent[0].type === 'PPM' ?
             comparentInfo = await this.mineurRepository.find({ where: { comparent: comparent[0].id } }) : [];
+        comparent[0].type === 'B' ?
+            comparentInfo = await this.banqueRepository.find({ where: { comparent: comparent[0].id } }) : [];
+
 
         return { comparent, comparentInfo };
     }
@@ -77,34 +95,54 @@ export class ComparentService {
     }
 
 
-    //  Update Comparebts
+    //  Update raisonSocialeAr
 
 
     async updateEntreprise(entre: Entreprise) {
-        const entreprise = this.entrepriseRepository.update(entre.comparent, entre)
-        return entreprise;
+
+        const entreprise = await this.entrepriseRepository.findOne({ where: { comparent: entre.comparent } });
+        entreprise.representant = entre.representant;
+        entreprise.raisonSociale = entre.raisonSociale;
+        entreprise.raisonSocialeAr = entre.raisonSocialeAr;
+        entreprise.ice = entre.ice;
+        entreprise.rc = entre.rc;
+        entreprise.cnss = entre.cnss;
+        entreprise.Adresse = entre.Adresse;
+        entreprise.AdresseAr = entre.AdresseAr;
+        entreprise.IDF = entre.IDF;
+        entreprise.RS = entre.RS;
+        entreprise.tel = entre.tel;
+        entreprise.capital = entre.capital;
+
+        return this.entrepriseRepository.update(entre.comparent, entreprise)
     }
 
     async updatePerson(person: PersonPhisique) {
-
         const personPh = await this.personRepository.findOne({ where: { comparent: person.comparent } })
         personPh.nomFr = person.nomFr;
         personPh.nomAr = person.nomAr;
         personPh.prenomFr = person.prenomFr;
         personPh.prenomAr = person.prenomAr;
         personPh.nationalite = person.nationalite;
+        personPh.nationaliteAr = person.nationaliteAr;
         personPh.fonction = person.fonction;
+        personPh.fonctionAr = person.fonctionAr;
         personPh.nomPereFr = person.nomPereFr;
         personPh.nomPereAr = person.nomPereAr;
         personPh.nomMereFr = person.nomMereFr;
         personPh.nomMereAr = person.nomMereAr;
         personPh.situation = person.situation;
         personPh.dateNaissance = person.dateNaissance;
+        personPh.lieuxNaissance = person.lieuxNaissance;
+        personPh.lieuxNaissanceAr = person.lieuxNaissanceAr;
         personPh.nomCompanionFr = person.nomCompanionFr;
         personPh.nomCompanionAr = person.nomCompanionAr;
         personPh.typeIdentification = person.typeIdentification;
         personPh.Identification = person.Identification;
         personPh.IdentificationValable = person.IdentificationValable;
+        personPh.tel = person.tel;
+        personPh.Adresse = person.Adresse;
+        personPh.AdresseAr = person.AdresseAr;
 
         return this.personRepository.update(person.comparent, personPh);
 
@@ -153,10 +191,38 @@ export class ComparentService {
             if (comparent.type === 'PPM') {
                 await this.mineurRepository.delete(id);
             }
+            if (comparent.type === 'B') {
+                await this.banqueRepository.delete(id);
+            }
             await this.comparentRepository.delete(id)
         } else throw new NotFoundException("Comarent Not Found");
 
         return comparent;
+    }
+
+
+
+    // service du banques
+
+    async createBanque(banque) {
+        return this.banqueRepository.insert(banque);
+    }
+
+    async updateBanque(banque) {
+        const newBanque = await this.banqueRepository.findOne({ where: { comparent: banque.comparent } });
+        if (!newBanque) {
+            throw new NotFoundException();
+        }
+        newBanque.libelle = banque.libelle;
+        newBanque.libelleAr = banque.libelleAr;
+        newBanque.Agence = banque.Agence;
+        newBanque.AgenceAr = banque.AgenceAr;
+        newBanque.addresse = banque.addresse;
+        newBanque.addresseAr = banque.addresseAr;
+        newBanque.tel = banque.tel;
+        newBanque.ville = banque.ville;
+        newBanque.villeAr = banque.villeAr;
+        return await this.banqueRepository.update(banque.id, banque)
     }
 
 }

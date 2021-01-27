@@ -9,7 +9,11 @@ export class PersonPhisique {
         public prenomFr: string,
         public prenomAr: string,
         public nationalite: string,
+        public nationaliteAr: string,
         public fonction: string,
+        public fonctionAr: string,
+        public Adresse: string,
+        public AdresseAr: string,
 
         public nomPereFr: string,
         public nomPereAr: string,
@@ -18,11 +22,15 @@ export class PersonPhisique {
 
         public situation: string,
         public dateNaissance: Date,
+        public lieuxNaissance: string,
+        public lieuxNaissanceAr: string,
         public nomCompanionFr: string,
         public nomCompanionAr: string,
 
         public typeIdentification: string,
         public Identification: string,
         public IdentificationValable: Date,
+        public tel: string,
+
     ) { };
 }

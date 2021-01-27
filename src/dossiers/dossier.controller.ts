@@ -15,6 +15,9 @@ export class DossierController {
         private readonly dossierServeice: DossierService,
         private readonly comptabiliteService: ComptabiliteService,
     ) { };
+
+
+
     @Post()
     async addDossier(@Body('title') docTitle: string, @Body('identifiant') identifiant: string, @Body('description') docDescription: string,
         @Body('nature') nature: string, @Body('libelle') libelle: string, @Body('dateOuverture') dateOuverture: string,

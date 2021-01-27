@@ -19,7 +19,11 @@ export class PersonPhysiqiueEntity {
     @Column('text') prenomFr: string;
     @Column('text') prenomAr: string;
     @Column('text') nationalite: string;
+    @Column('text') nationaliteAr: string;
     @Column('text') fonction: string;
+    @Column('text') fonctionAr: string;
+    @Column('text') Adresse: string;
+    @Column('text') AdresseAr: string;
 
     @Column('text') nomPereFr: string;
     @Column('text') nomPereAr: string;
@@ -28,11 +32,14 @@ export class PersonPhysiqiueEntity {
 
     @Column('text') situation: string;
     @Column('date') dateNaissance: Date;
+    @Column('text') lieuxNaissance: string;
+    @Column('text') lieuxNaissanceAr: string;
     @Column('text') nomCompanionFr: string;
     @Column('text') nomCompanionAr: string;
 
     @Column('text') typeIdentification: string;
     @Column('text') Identification: string;
     @Column('date') IdentificationValable: Date;
+    @Column('text') tel: string;
 
 }

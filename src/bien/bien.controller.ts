@@ -24,14 +24,21 @@ export class BienController {
         @Body('address') address: string,
         @Body('ville') ville: string,
         @Body('Superficie') Superficie: string,
+        @Body('detailSuperficie') detailSuperficie: string,
         @Body('nb_piece') nb_piece: number,
         @Body('etage') etage: number,
         @Body('Immeuble') Immeuble: string,
         @Body('terrainType') terrainType: string,
         @Body('ancfcc') ancfcc: string,
         @Body('valeur') valeur: number,
+        @Body('details') details: any,
+        @Body('descriptionAr') descriptionAr: string,
+        @Body('addressAr') addressAr: string,
+        @Body('villeAr') villeAr: string,
+        @Body('detailSuperficieAr') detailSuperficieAr: string,
+        @Body('typeAr') typeAr: string,
     ) {
-        const bien = new Bien(null, libelle, type, description, address, ville, Superficie, nb_piece, etage, Immeuble, terrainType, ancfcc, valeur);
+        const bien = new Bien(null, libelle, type, description, address, ville, Superficie, detailSuperficie, nb_piece, etage, Immeuble, terrainType, ancfcc, valeur, JSON.stringify(details), typeAr, descriptionAr, addressAr, villeAr, detailSuperficieAr);
         return this.bienService.createBien(bien);
     }
 
@@ -44,14 +51,22 @@ export class BienController {
         @Body('address') address: string,
         @Body('ville') ville: string,
         @Body('Superficie') Superficie: string,
+        @Body('detailSuperficie') detailSuperficie: string,
         @Body('nb_piece') nb_piece: number,
         @Body('etage') etage: number,
         @Body('Immeuble') Immeuble: string,
         @Body('terrainType') terrainType: string,
         @Body('ancfcc') ancfcc: string,
         @Body('valeur') valeur: number,
+        @Body('details') details: any,
+        @Body('descriptionAr') descriptionAr: string,
+        @Body('addressAr') addressAr: string,
+        @Body('villeAr') villeAr: string,
+        @Body('detailSuperficieAr') detailSuperficieAr: string,
+        @Body('typeAr') typeAr: string,
     ) {
-        const bien = new Bien(id, libelle, type, description, address, ville, Superficie, nb_piece, etage, Immeuble, terrainType, ancfcc, valeur);
+        const bien = new Bien(id, libelle, type, description, address, ville, Superficie, detailSuperficie, nb_piece, etage, Immeuble, terrainType, ancfcc, valeur, JSON.stringify(details), typeAr, descriptionAr, addressAr, villeAr, detailSuperficieAr);
+        console.log(bien)
         return this.bienService.updateBien(bien);
     }
 

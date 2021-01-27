@@ -43,6 +43,10 @@ __decorate([
     __metadata("design:type", String)
 ], BienEntity.prototype, "Superficie", void 0);
 __decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], BienEntity.prototype, "detailSuperficie", void 0);
+__decorate([
     typeorm_1.Column('int'),
     __metadata("design:type", Number)
 ], BienEntity.prototype, "nb_piece", void 0);
@@ -66,6 +70,30 @@ __decorate([
     typeorm_1.Column('real'),
     __metadata("design:type", Number)
 ], BienEntity.prototype, "valeur", void 0);
+__decorate([
+    typeorm_1.Column('json'),
+    __metadata("design:type", Object)
+], BienEntity.prototype, "details", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], BienEntity.prototype, "typeAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], BienEntity.prototype, "descriptionAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], BienEntity.prototype, "addressAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], BienEntity.prototype, "villeAr", void 0);
+__decorate([
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], BienEntity.prototype, "detailSuperficieAr", void 0);
 BienEntity = __decorate([
     typeorm_1.Entity()
 ], BienEntity);

@@ -30,3 +30,11 @@ INSERT INTO `model_entity` (`id`, `language`, `redacteur`, `libelle`, `type`, `c
 
 
 {"comptabilite":"1","libelle":"Conservation Foncière","typeTrans":"Entrée","typePay":"Espece","comparent":1,"valeur":"1223","service":{"id":2,"libelle":"Conservation Foncière","tva":0,"partie":"etude","type":"depense"}}
+
+
+
+      libelle: '',
+      Agence: '',
+      addresse: '',
+      tel: '',
+      ville: '',

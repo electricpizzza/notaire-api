@@ -59,20 +59,85 @@
         }
     ],
     "typeBien":[
-        {
-            "ref":"bienApp",
+                {
+            "ref":"bienBur",
+            "libelleAr":"شقة سكنية",
             "libelle":"Appartement",
-            "value":"appartement"
+            "value":"appartement",
+            "details":[
+                {
+                    "lib":"Salon",
+                    "nb":0
+                },
+                {
+                    "lib":"Chambre",
+                    "nb":0
+                },
+                {
+                    "lib":"Cuisine",
+                    "nb":0
+                }
+            ]
         },
         {
-            "ref":"bienTerr",
-            "libelle":"Terrain",
-            "value":"terrain"
+            "ref":"bienBur",
+            "libelleAr":"مكتب",
+            "libelle":"Bureau",
+            "value":"bureau",
+            "details":[]
+        },
+        {
+            "ref":"bienMag",
+            "libelleAr":"المحل",
+            "libelle":"Magasin",
+            "value":"magasin",
+            "details":[]
+        },
+        {
+            "ref":"bienTerrBati",
+            "libelleAr":"أرض للبناء",
+            "libelle":"Terrain Batiment",
+            "value":"terrain_bati",
+            "details":[]
+        },
+        {
+            "ref":"bienTerrNor",
+            "libelleAr":"الأرض عادية",
+            "libelle":"Terrain Normal",
+            "value":"terrain_nor",
+            "details":[
+                                {
+                    "lib":"Cuisine",
+                    "nb":0
+                }
+            ]
         },
         {
             "ref":"bienVilla",
+            "libelleAr":"فيلا",
             "libelle":"Villa",
-            "value":"villa"
+            "value":"villa",
+            "details":[
+                {
+                    "lib":"Salon",
+                    "nb":0
+                },
+                {
+                    "lib":"Chambre",
+                    "nb":0
+                },
+                {
+                    "lib":"Cuisine",
+                    "nb":0
+                }
+            ]
+        },
+        {
+            "ref":"bienVillaSemi",
+            "libelleAr":"فيلا نصف تشطيب",
+            "libelle":"Villa Semi-fini",
+            "value":"villa_semi",
+            "details":[]
         }
     ],
     "typeActe":[
@@ -90,6 +155,14 @@
             "ref":"act3",
             "libelle":"Acte de donation",
             "value":"actes.Donation"
+        }
+    ],
+    "modelAveu":[
+        {
+            "ref":"atu",
+            "lang":"ar",
+            "titre":"إمتلاك أرض حضرية غير مبنية فاس",
+            "doc":""
         }
     ]
 }
