@@ -17,10 +17,10 @@ export class ActeService {
     ) { };
 
     async getOneActe(id: number) {
-        const acte = await this.acteRepository.find({ where: { id } })
-        if (!acte) {
+        const acte = await this.acteRepository.find({ where: { id } });
+        if (!acte) 
             throw new NotFoundException()
-        } else
+            console.log(acte);
             return acte;
     }
 

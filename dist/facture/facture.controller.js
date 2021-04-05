@@ -33,7 +33,7 @@ let FactureController = class FactureController {
         return newFacture;
     }
     anullerFacture(id) {
-        return this.anullerFacture(id);
+        return this.factureService.anullerFacture(id);
     }
 };
 __decorate([

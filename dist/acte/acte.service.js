@@ -30,11 +30,10 @@ let ActeService = class ActeService {
     ;
     async getOneActe(id) {
         const acte = await this.acteRepository.find({ where: { id } });
-        if (!acte) {
+        if (!acte)
             throw new common_1.NotFoundException();
-        }
-        else
-            return acte;
+        console.log(acte);
+        return acte;
     }
     async getAllActes() {
         return await this.acteRepository.find();

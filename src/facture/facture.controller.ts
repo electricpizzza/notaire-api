@@ -36,6 +36,6 @@ export class FactureController {
 
     @Delete(':id')
     anullerFacture(@Param('id') id: number) {
-        return this.anullerFacture(id)
+        return this.factureService.anullerFacture(id)
     }
 }

@@ -5,5 +5,5 @@ export declare class FactureController {
     getOneFacture(id: number): Promise<import("./facture.entity").FactureEntity>;
     getAllFactures(): Promise<import("./facture.entity").FactureEntity[]>;
     createFacture(reference: string, termes: string, dateFacture: Date, client: number, remisG: number, total: number, articles: any, maitre: string, payment: string): Promise<import("typeorm").InsertResult>;
-    anullerFacture(id: number): any;
+    anullerFacture(id: number): Promise<import("typeorm").DeleteResult>;
 }
