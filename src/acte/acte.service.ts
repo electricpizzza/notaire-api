@@ -29,19 +29,22 @@ export class ActeService {
     }
 
     async createActe(acte: Acte) {
-
-        const comparents = await this.comparentRepository.find();
         const biens = await this.bienRepository.find();
         let reg;
         let document = await (await this.modelRepository.findOne({ where: { id: acte.model } })).boilerPlate;
         acte.contenu.forEach(contenu => {
             switch (contenu.type) {
+                
                 case "comparent":
-                    const comparent = comparents.find(comp => comp.id = contenu.value[0]);
-                    reg = new RegExp(`&lt;${contenu.name}&gt;&lt;NOM&lt;`, "g");
-                    document = document.replace(reg, comparent.nom);
-                    reg = new RegExp(`&lt;${contenu.name}&gt;&lt;PRENOM&lt;`, "g");
-                    document = document.replace(reg, '');
+                    console.log(contenu.value[0]);
+                    const comparent = `<p>
+                    Mr. ${contenu.value[0].nomFr} ${contenu.value[0].nomFr} fils de ${contenu.value[0].nomPereFr} et ${contenu.value[0].nomMereFr},
+                    de nationalité ${contenu.value[0].nationalite}, ${contenu.value[0].fonction}, Né à ${contenu.value[0].lieuxNaissance} le ${contenu.value[0].dateNaissance},
+                    Habit a ${contenu.value[0].Adresse} , Porteur de identite ${contenu.value[0].Identification}, valable jusqu'à ${contenu.value[0].IdentificationValable}.
+                    <p>`;
+                    console.log(comparent);
+                    reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");                    
+                    document = document.replace(reg, comparent);
                     break;
                 case "bien":
                     const bien = biens.find(b => b.id = contenu.value[0]);
@@ -50,17 +53,14 @@ export class ActeService {
                     break;
 
                 case "text":
-                    //reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
                     reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
-                    console.log(reg, contenu.name);
-
                     document = document.replace(reg, contenu.value);
                     break;
             }
         });
         acte.contenu = JSON.stringify(acte.contenu);
         acte.fichier = document;
-        console.log(document);
+        //  throw new NotFoundException();
         return await this.acteRepository.insert(acte);
     }
 
