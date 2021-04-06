@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { BadGatewayException, Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Acte } from './acte.model';
 import { ActeService } from './acte.service';
 
@@ -21,12 +21,14 @@ export class ActeController {
         @Body('libelle') libelle: string,
         @Body('redacteur') redacteur: string,
         @Body('contenu') contenu: any,
+        @Body('data') data: any,
         @Body('dateRedaction') dateRedaction: Date,
         @Body('fichier') fichier: string,
         @Body('dossierId') dossierId: any,
         @Body('model') model: any,
     ) {
         const acte = new Acte(null, libelle, redacteur, contenu, new Date(), fichier, model);
+        // throw new BadGatewayException();
         return this.acteService.createActe(acte)
     }
 

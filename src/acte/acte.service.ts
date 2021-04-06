@@ -29,30 +29,28 @@ export class ActeService {
     }
 
     async createActe(acte: Acte) {
-        const biens = await this.bienRepository.find();
+        // const biens = await this.bienRepository.find();
         let reg;
         let document = await (await this.modelRepository.findOne({ where: { id: acte.model } })).boilerPlate;
         acte.contenu.forEach(contenu => {
             switch (contenu.type) {
-                
                 case "comparent":
-                    console.log(contenu.value[0]);
-                    const comparent = `<p>
-                    Mr. ${contenu.value[0].nomFr} ${contenu.value[0].nomFr} fils de ${contenu.value[0].nomPereFr} et ${contenu.value[0].nomMereFr},
-                    de nationalité ${contenu.value[0].nationalite}, ${contenu.value[0].fonction}, Né à ${contenu.value[0].lieuxNaissance} le ${contenu.value[0].dateNaissance},
-                    Habit a ${contenu.value[0].Adresse} , Porteur de identite ${contenu.value[0].Identification}, valable jusqu'à ${contenu.value[0].IdentificationValable}.
-                    <p>`;
-                    console.log(comparent);
+                    const com =  contenu.value[0];
+                    const comparent = this.comparentFr(com);
                     reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");                    
                     document = document.replace(reg, comparent);
                     break;
                 case "bien":
-                    const bien = biens.find(b => b.id = contenu.value[0]);
-                    reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
-                    document = document.replace(`[${contenu.name}][LIBELLE]`, bien.libelle);
+                    // const bien = biens.find(b => b.id = contenu.value[0]);
+                    // reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                    // document = document.replace(`[${contenu.name}][LIBELLE]`, bien.libelle);
                     break;
 
-                case "text":
+                    case "text":
+                        reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                        document = document.replace(reg, contenu.value);
+                        break;
+                    case "numero":
                     reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
                     document = document.replace(reg, contenu.value);
                     break;
@@ -60,7 +58,7 @@ export class ActeService {
         });
         acte.contenu = JSON.stringify(acte.contenu);
         acte.fichier = document;
-        //  throw new NotFoundException();
+        //throw new NotFoundException();
         return await this.acteRepository.insert(acte);
     }
 
@@ -77,6 +75,31 @@ export class ActeService {
 
     async deleteActe(id: number) {
         return await this.acteRepository.delete(id);
+    }
+
+
+    comparentFr(com){
+        return `<p>Mr. ${com.nomFr} ${com.nomFr} fils de ${com.nomPereFr} et ${com.nomMereFr},de nationalité ${com.nationalite}, ${com.fonction}, Né à ${com.lieuxNaissance} le ${com.dateNaissance},Habit a ${com.Adresse} , Porteur de identite ${com.Identification}, valable jusqu'à ${com.IdentificationValable}.<p>`;
+    }
+    comparentAr(com){
+        return '<p style="text-align:right;">'+
+        'السيد '+
+         com.nomAr+' '+com.prenomAr
+        +' ، من والديه '+
+        com.nomPereAr
+        +' و '+
+        com.nomMereAr +','+ com.nationaliteAr
+        +'،  الجنسية،  ، المزداد '+
+        com.lieuxNaissanceAr+
+        +'، بتاريخ'+
+        com.dateNaissance+
+        ' ، المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطارالمادة 49 من قانون مدونة الأسرة بالسيدة '+
+        '، والساكن بفاس، الحامل لبطاقة التعريف الوطنية رقم '
+        +com.Identification+
+        +' الممتدة صلاحيتها إلى '
+        '. '+
+        com.IdentificationValable
+        '</p>';
     }
 
 }

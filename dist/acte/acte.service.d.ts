@@ -15,4 +15,6 @@ export declare class ActeService {
     createActe(acte: Acte): Promise<import("typeorm").InsertResult>;
     updateActe(acte: Acte): Promise<import("typeorm").UpdateResult>;
     deleteActe(id: number): Promise<import("typeorm").DeleteResult>;
+    comparentFr(com: any): string;
+    comparentAr(com: any): string;
 }
