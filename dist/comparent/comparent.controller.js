@@ -57,8 +57,7 @@ let ComparentController = class ComparentController {
         return this.comparentService.updateEntreprise(entreprise);
     }
     updatePerson(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, nationaliteAr, fonction, fonctionAr, Address, AddressAr, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, lieuxNaissance, lieuxNaissanceAr, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable, tel) {
-        const person = new person_phisique_model_1.PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, nationaliteAr, fonction, fonctionAr, Address, AddressAr, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, lieuxNaissance, lieuxNaissanceAr, nomCompanionAr, typeIdentification, Identification, IdentificationValable, tel);
-        console.log(person);
+        const person = new person_phisique_model_1.PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, nationaliteAr, fonction, fonctionAr, Address, AddressAr, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, lieuxNaissance, lieuxNaissanceAr, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable, tel);
         return this.comparentService.updatePerson(person);
     }
     updateMinor(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, nomPereFr, nomPereAr, nomMereFr, nomMereAr, dateNaissance, typeIdentification, Identification, IdentificationValable, tutelle) {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { BadGatewayException, Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Comparent } from './comparent.model';
 import { ComparentService } from './comparent.service';
 import { Banque } from './subcomparent/banque/banque.model';
@@ -164,9 +164,7 @@ export class ComparentController {
         @Body('IdentificationValable') IdentificationValable: Date,
         @Body('tel') tel: string,
     ) {
-        const person = new PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, nationaliteAr, fonction, fonctionAr, Address, AddressAr, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, nomCompanionFr, lieuxNaissance, lieuxNaissanceAr, nomCompanionAr, typeIdentification, Identification, IdentificationValable, tel);
-
-        console.log(person);
+        const person = new PersonPhisique(comparent, nomFr, nomAr, prenomFr, prenomAr, nationalite, nationaliteAr, fonction, fonctionAr, Address, AddressAr, nomPereFr, nomPereAr, nomMereFr, nomMereAr, situation, dateNaissance, lieuxNaissance, lieuxNaissanceAr, nomCompanionFr, nomCompanionAr, typeIdentification, Identification, IdentificationValable, tel);
         return this.comparentService.updatePerson(person);
     }
 
