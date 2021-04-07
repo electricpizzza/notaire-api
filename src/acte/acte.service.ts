@@ -41,9 +41,9 @@ export class ActeService {
                     document = document.replace(reg, comparent);
                     break;
                 case "bien":
-                    // const bien = biens.find(b => b.id = contenu.value[0]);
-                    // reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
-                    // document = document.replace(`[${contenu.name}][LIBELLE]`, bien.libelle);
+                     const bien = contenu.value;
+                    reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                    document = document.replace(`&lt;${contenu.name}&gt;`, this.bienFr(bien));
                     break;
 
                     case "text":
@@ -100,6 +100,10 @@ export class ActeService {
         '. '+
         com.IdentificationValable
         '</p>';
+    }
+
+    bienFr(bien){
+        return `<p>La totalité de la propriété situé à ${bien.address} ,${bien.ville} d’une superficie de ${bien.Superficie}, consistant de ${bien.detailSuperficie} . LE TOUT FAISANT L’OBJET DU TITRE FONCIER NUMERO ${bien.libelle} . </p>`
     }
 
 }

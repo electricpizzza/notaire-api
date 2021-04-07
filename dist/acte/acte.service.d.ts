@@ -17,4 +17,5 @@ export declare class ActeService {
     deleteActe(id: number): Promise<import("typeorm").DeleteResult>;
     comparentFr(com: any): string;
     comparentAr(com: any): string;
+    bienFr(bien: any): string;
 }
