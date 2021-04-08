@@ -2972,13 +2972,13 @@
         "affectsGlobalScope": false
       },
       "../src/acte/acte.service.ts": {
-        "version": "45a41b0359471ccc0ea50a5e834b2e4d55bf6659f7627a3ff56961257c736787",
-        "signature": "430ef14d375e318e76e9cfa06ffa6266c167eccc33a6e3714d863a381c6ea42e",
+        "version": "50c4d4cb81f33b15fe2699078e653982ada788cd579a5f7c8e1493fb6ed52e2f",
+        "signature": "45aaadc46257e75423ff1239fe27d3010ef372f3b639de4e4064444d155c14f0",
         "affectsGlobalScope": false
       },
       "../src/acte/acte.controller.ts": {
-        "version": "aad0306db94cdb130586474787b838481f90d6454fbedc8d91bcf93b91c7a901",
-        "signature": "17f3a4c8ffa8b929844a5633b8368d567df88bee59306556a279b94c79f2b4ec",
+        "version": "ccb1055cb47eedd9e14a68b20a0feca64a541a8ef12f0a3ee2f8a8f267516198",
+        "signature": "71e1f71c8393febe55fa155ca28884078376a4a2c868d0464d2302976ba14950",
         "affectsGlobalScope": false
       },
       "../src/acte/acte.module.ts": {

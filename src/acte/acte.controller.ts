@@ -18,6 +18,7 @@ export class ActeController {
 
     @Post()
     createActe(
+        @Body('lang') lang: string,
         @Body('libelle') libelle: string,
         @Body('redacteur') redacteur: string,
         @Body('contenu') contenu: any,
@@ -29,7 +30,7 @@ export class ActeController {
     ) {
         const acte = new Acte(null, libelle, redacteur, contenu, new Date(), fichier, model);
         // throw new BadGatewayException();
-        return this.acteService.createActe(acte)
+        return this.acteService.createActe(acte, lang)
     }
 
     @Put(':id')

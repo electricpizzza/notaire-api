@@ -28,7 +28,7 @@ export class ActeService {
         return await this.acteRepository.find()
     }
 
-    async createActe(acte: Acte) {
+    async createActe(acte: Acte, lang:string) {
         // const biens = await this.bienRepository.find();
         let reg;
         let document = await (await this.modelRepository.findOne({ where: { id: acte.model } })).boilerPlate;
@@ -36,14 +36,22 @@ export class ActeService {
             switch (contenu.type) {
                 case "comparent":
                     const com =  contenu.value[0];
-                    const comparent = this.comparentFr(com);
+                    let comparent = "";
+                    if (lang == "Fr")      
+                        comparent = this.comparentAr(com);
+                    else       
+                       comparent = this.comparentAr(com);
+
                     reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");                    
                     document = document.replace(reg, comparent);
                     break;
                 case "bien":
                      const bien = contenu.value;
                     reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
+                    if (lang == "Fr")      
                     document = document.replace(`&lt;${contenu.name}&gt;`, this.bienFr(bien));
+                    else
+                    document = document.replace(`&lt;${contenu.name}&gt;`, this.bienAr(bien));
                     break;
 
                     case "text":
@@ -69,7 +77,6 @@ export class ActeService {
         newActe.contenu = JSON.stringify(acte.contenu);
         newActe.dateRedaction = acte.dateRedaction;
         newActe.fichier = acte.fichier;
-        console.log(newActe);
         return await this.acteRepository.update(acte.id, newActe);
     }
 
@@ -79,31 +86,44 @@ export class ActeService {
 
 
     comparentFr(com){
-        return `<p>Mr. ${com.nomFr} ${com.nomFr} fils de ${com.nomPereFr} et ${com.nomMereFr},de nationalité ${com.nationalite}, ${com.fonction}, Né à ${com.lieuxNaissance} le ${com.dateNaissance},Habit a ${com.Adresse} , Porteur de identite ${com.Identification}, valable jusqu'à ${com.IdentificationValable}.<p>`;
+        let paraComp = `<p>Mr. ${com.nomFr} ${com.nomFr} fils de ${com.nomPereFr} et ${com.nomMereFr}, ${com.fonction}, de nationalité ${com.nationalite}, Né à ${com.lieuxNaissance} le ${com.dateNaissance},Habit a ${com.Adresse} ,`;
+        if(com.situation === "marie")
+        paraComp += `Marié selon la loi islamique avec ${com.nomCompanionFr}`;
+        paraComp +=` Porteur de ${com.typeIdentification ==='CIN'? "Carte Nationale d'Identité":com.typeIdentification} de numéro ${com.Identification}, valable jusqu'à ${com.IdentificationValable}.<p>`;
+        return paraComp;
     }
     comparentAr(com){
-        return '<p style="text-align:right;">'+
-        'السيد '+
-         com.nomAr+' '+com.prenomAr
-        +' ، من والديه '+
-        com.nomPereAr
-        +' و '+
-        com.nomMereAr +','+ com.nationaliteAr
-        +'،  الجنسية،  ، المزداد '+
+        const paraCom = '\u202C'+' السيد <br>'+'\u202C'+com.nomAr+' '+'\u202C'+com.prenomAr+
+        '\u202C'+' ، من والديه '+'\u202C'+    com.nomPereAr
+        +'\u202C'+' و '+'\u202C'+
+        com.nomMereAr +'\u202C'+','+'\u202C'+ com.nationaliteAr
+        +'\u202C'+'،  الجنسية،  ، المزداد '+'\u202C'+
         com.lieuxNaissanceAr+
-        +'، بتاريخ'+
-        com.dateNaissance+
-        ' ، المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطارالمادة 49 من قانون مدونة الأسرة بالسيدة '+
-        '، والساكن بفاس، الحامل لبطاقة التعريف الوطنية رقم '
-        +com.Identification+
+        +'\u202C'+'، بتاريخ'+'\u202B'+com.dateNaissance+'\u202C'+
+        ' ، المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطارالمادة 49 من قانون مدونة الأسرة بالسيدة '+'\u202C'+
+        '، والساكن بفاس، '+'\u202C'+
+        com.AdresseAr
+        +'الحامل لبطاقة التعريف الوطنية رقم '
+        +'\u202C'+com.Identification+'\u202C'+
         +' الممتدة صلاحيتها إلى '
-        '. '+
-        com.IdentificationValable
-        '</p>';
+        '. '+'\u202B'+
+        com.IdentificationValable+
+        '';
+        //'\u202C'+
+
+        const txtAr = `
+        1/- السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${new Date(com.dateNaissance).toLocaleDateString()}</span>، المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>، والساكن ب<span>${com.AdresseAr}</span>، .<span>${com.Identification}</span>الحامل لبطاقة التعريف الوطنية رقم `
+        console.log(txtAr);
+        
+        return `<p style="text-align:right;">${txtAr}</p>`;
     }
 
     bienFr(bien){
         return `<p>La totalité de la propriété situé à ${bien.address} ,${bien.ville} d’une superficie de ${bien.Superficie}, consistant de ${bien.detailSuperficie} . LE TOUT FAISANT L’OBJET DU TITRE FONCIER NUMERO ${bien.libelle} . </p>`
+    }
+
+    bienAr(bein){
+        return "<p> </p>"
     }
 
 }

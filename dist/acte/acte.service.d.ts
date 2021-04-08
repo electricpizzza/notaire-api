@@ -12,10 +12,11 @@ export declare class ActeService {
     constructor(acteRepository: Repository<ActeEntity>, modelRepository: Repository<ModelEntity>, bienRepository: Repository<BienEntity>, comparentRepository: Repository<ComparentEntity>);
     getOneActe(id: number): Promise<ActeEntity[]>;
     getAllActes(): Promise<ActeEntity[]>;
-    createActe(acte: Acte): Promise<import("typeorm").InsertResult>;
+    createActe(acte: Acte, lang: string): Promise<import("typeorm").InsertResult>;
     updateActe(acte: Acte): Promise<import("typeorm").UpdateResult>;
     deleteActe(id: number): Promise<import("typeorm").DeleteResult>;
     comparentFr(com: any): string;
     comparentAr(com: any): string;
     bienFr(bien: any): string;
+    bienAr(bein: any): string;
 }

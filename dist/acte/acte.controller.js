@@ -26,9 +26,9 @@ let ActeController = class ActeController {
     getOneActe(id) {
         return this.acteService.getOneActe(id);
     }
-    createActe(libelle, redacteur, contenu, data, dateRedaction, fichier, dossierId, model) {
+    createActe(lang, libelle, redacteur, contenu, data, dateRedaction, fichier, dossierId, model) {
         const acte = new acte_model_1.Acte(null, libelle, redacteur, contenu, new Date(), fichier, model);
-        return this.acteService.createActe(acte);
+        return this.acteService.createActe(acte, lang);
     }
     updateActe(id, libelle, redacteur, contenu, dateRedaction, fichier, model) {
         const acte = new acte_model_1.Acte(id, libelle, redacteur, contenu, dateRedaction, fichier, model);
@@ -53,16 +53,17 @@ __decorate([
 ], ActeController.prototype, "getOneActe", null);
 __decorate([
     common_1.Post(),
-    __param(0, common_1.Body('libelle')),
-    __param(1, common_1.Body('redacteur')),
-    __param(2, common_1.Body('contenu')),
-    __param(3, common_1.Body('data')),
-    __param(4, common_1.Body('dateRedaction')),
-    __param(5, common_1.Body('fichier')),
-    __param(6, common_1.Body('dossierId')),
-    __param(7, common_1.Body('model')),
+    __param(0, common_1.Body('lang')),
+    __param(1, common_1.Body('libelle')),
+    __param(2, common_1.Body('redacteur')),
+    __param(3, common_1.Body('contenu')),
+    __param(4, common_1.Body('data')),
+    __param(5, common_1.Body('dateRedaction')),
+    __param(6, common_1.Body('fichier')),
+    __param(7, common_1.Body('dossierId')),
+    __param(8, common_1.Body('model')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object, Object, Date, String, Object, Object]),
+    __metadata("design:paramtypes", [String, String, String, Object, Object, Date, String, Object, Object]),
     __metadata("design:returntype", void 0)
 ], ActeController.prototype, "createActe", null);
 __decorate([
