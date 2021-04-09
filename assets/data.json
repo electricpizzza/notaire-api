@@ -164,5 +164,11 @@
             "titre":"إمتلاك أرض حضرية غير مبنية فاس",
             "doc":""
         }
-    ]
+    ],
+    "actePhrases":{
+        "comparentFr" : "Mr. prenomFr nomFr fils de nomPereFr et nomMereFr, fonction , de nationalité nationalite , Né à lieuxNaissance  le dateNaissance , Habit a Adresse. situation Porteur de typeIdentification de numéro Identification, valable jusqu'à IdentificationValable.",
+        "comparentAr" : "",
+        "bineFr" : "La totalité de la propriété situé à address ,ville d’une superficie de Superficie m<sup>2</sup>, consistant de detailSuperficie . LE TOUT FAISANT L’OBJET DU TITRE FONCIER NUMERO libelle .",
+        "bineAr" : ""
+    }
 }

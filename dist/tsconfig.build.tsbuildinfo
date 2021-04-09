@@ -2972,8 +2972,8 @@
         "affectsGlobalScope": false
       },
       "../src/acte/acte.service.ts": {
-        "version": "50c4d4cb81f33b15fe2699078e653982ada788cd579a5f7c8e1493fb6ed52e2f",
-        "signature": "45aaadc46257e75423ff1239fe27d3010ef372f3b639de4e4064444d155c14f0",
+        "version": "a3b33a70ce4f51a6513377a39b4440afbecc42581865429c69874a0fc120ddc0",
+        "signature": "5fed48422ea39968f11fb644200bd2b0e1d9bde899219c967e778906d843f272",
         "affectsGlobalScope": false
       },
       "../src/acte/acte.controller.ts": {
@@ -6350,6 +6350,7 @@
       "../src/acte/acte.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/acte/acte.entity.ts",
         "../src/acte/acte.model.ts",

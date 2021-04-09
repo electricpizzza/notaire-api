@@ -20,6 +20,7 @@ const acte_entity_1 = require("./acte.entity");
 const model_entity_1 = require("../model/model.entity");
 const bein_entity_1 = require("../bien/bein.entity");
 const comparent_entity_1 = require("../comparent/comparent.entity");
+const fs = require("fs");
 let ActeService = class ActeService {
     constructor(acteRepository, modelRepository, bienRepository, comparentRepository) {
         this.acteRepository = acteRepository;
@@ -47,7 +48,7 @@ let ActeService = class ActeService {
                     const com = contenu.value[0];
                     let comparent = "";
                     if (lang == "Fr")
-                        comparent = this.comparentAr(com);
+                        comparent = this.comparentFr(com);
                     else
                         comparent = this.comparentAr(com);
                     reg = new RegExp(`&lt;${contenu.name}&gt;`, "g");
@@ -88,39 +89,43 @@ let ActeService = class ActeService {
         return await this.acteRepository.delete(id);
     }
     comparentFr(com) {
-        let paraComp = `<p>Mr. ${com.nomFr} ${com.nomFr} fils de ${com.nomPereFr} et ${com.nomMereFr}, ${com.fonction}, de nationalité ${com.nationalite}, Né à ${com.lieuxNaissance} le ${com.dateNaissance},Habit a ${com.Adresse} ,`;
-        if (com.situation === "marie")
-            paraComp += `Marié selon la loi islamique avec ${com.nomCompanionFr}`;
-        paraComp += ` Porteur de ${com.typeIdentification === 'CIN' ? "Carte Nationale d'Identité" : com.typeIdentification} de numéro ${com.Identification}, valable jusqu'à ${com.IdentificationValable}.<p>`;
-        return paraComp;
+        const data = fs.readFileSync('assets/data.json', 'utf8');
+        let para = JSON.parse(data).actePhrases.comparentFr;
+        para = para.replace('prenomFr', com.prenomFr);
+        para = para.replace('nomFr', com.nomFr);
+        para = para.replace('nomPereFr', com.nomPereFr);
+        para = para.replace('nomMereFr', com.nomMereFr);
+        para = para.replace('fonction', com.fonction);
+        para = para.replace('nationalite', com.nationalite);
+        para = para.replace('lieuxNaissance', com.lieuxNaissance);
+        para = para.replace('dateNaissance', new Date(com.dateNaissance).toUTCString().split(",")[1].split("00")[0]);
+        para = para.replace('Adresse', com.Adresse);
+        para = para.replace('typeIdentification', com.typeIdentification === 'CIN' ? "Carte Nationale d'Identité" : com.typeIdentification);
+        para = para.replace('Identification', com.Identification);
+        para = para.replace('IdentificationValable', new Date(com.IdentificationValable).toUTCString().split(",")[1].split("00")[0]);
+        para = para.replace('situation', com.situation === "marie" ? `Marié selon la loi islamique avec ${com.nomCompanionFr}` : '');
+        return `<p>${para}</p>`;
     }
     comparentAr(com) {
-        const paraCom = '\u202C' + ' السيد <br>' + '\u202C' + com.nomAr + ' ' + '\u202C' + com.prenomAr +
-            '\u202C' + ' ، من والديه ' + '\u202C' + com.nomPereAr
-            + '\u202C' + ' و ' + '\u202C' +
-            com.nomMereAr + '\u202C' + ',' + '\u202C' + com.nationaliteAr
-            + '\u202C' + '،  الجنسية،  ، المزداد ' + '\u202C' +
-            com.lieuxNaissanceAr +
-            +'\u202C' + '، بتاريخ' + '\u202B' + com.dateNaissance + '\u202C' +
-            ' ، المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطارالمادة 49 من قانون مدونة الأسرة بالسيدة ' + '\u202C' +
-            '، والساكن بفاس، ' + '\u202C' +
-            com.AdresseAr
-            + 'الحامل لبطاقة التعريف الوطنية رقم '
-            + '\u202C' + com.Identification + '\u202C' +
-            +' الممتدة صلاحيتها إلى ';
-        '. ' + '\u202B' +
-            com.IdentificationValable +
-            '';
-        const txtAr = `
-        1/- السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${new Date(com.dateNaissance).toLocaleDateString()}</span>، المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>، والساكن ب<span>${com.AdresseAr}</span>، .<span>${com.Identification}</span>الحامل لبطاقة التعريف الوطنية رقم `;
-        console.log(txtAr);
-        return `<p style="text-align:right;">${txtAr}</p>`;
+        const paraCom = `
+        السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${new Date(com.dateNaissance).toLocaleDateString()}</span>،${com.situation !== "marie" ? `` : ` المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>،`} والساكن ب<span>${com.AdresseAr}</span>، الحامل لبطاقة التعريف الوطنية رقم <span>${'\u202B' + com.Identification}</span> الممتدة صلاحيتها إلى . <span>${'\u202B' + com.IdentificationValable}</span>`;
+        return `<p style="text-align:right;">${paraCom}</p>`;
     }
     bienFr(bien) {
-        return `<p>La totalité de la propriété situé à ${bien.address} ,${bien.ville} d’une superficie de ${bien.Superficie}, consistant de ${bien.detailSuperficie} . LE TOUT FAISANT L’OBJET DU TITRE FONCIER NUMERO ${bien.libelle} . </p>`;
+        const data = fs.readFileSync('assets/data.json', 'utf8');
+        let para = JSON.parse(data).actePhrases.bineFr;
+        para = para.replace('address', bien.address);
+        para = para.replace('ville', bien.ville);
+        para = para.replace('Superficie', bien.Superficie);
+        para = para.replace('detailSuperficie', bien.detailSuperficie);
+        para = para.replace('libelle', bien.libelle);
+        return `<p>${para}</p>`;
     }
-    bienAr(bein) {
-        return "<p> </p>";
+    bienAr(bien) {
+        const parabien = `
+        الملك المسمى "  ${bien.descriptionAr}  "، الكائن ب${bien.addressAr}، والمتكون من ${bien.detailSuperficie}، مساحتها ${bien.Superficie} المقيدة بالمحافظة العقارية ب${bien.villeAr}، موضوع الرسم العقاري رقم ${bien.libelle}، مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ.
+        `;
+        return `<p style="text-align:right;"> ${parabien} </p>`;
     }
 };
 ActeService = __decorate([

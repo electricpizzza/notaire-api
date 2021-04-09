@@ -18,5 +18,5 @@ export declare class ActeService {
     comparentFr(com: any): string;
     comparentAr(com: any): string;
     bienFr(bien: any): string;
-    bienAr(bein: any): string;
+    bienAr(bien: any): string;
 }
