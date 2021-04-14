@@ -109,7 +109,7 @@ export class ActeService {
         // if(com.situation === "marie")
         // paraComp += `Marié selon la loi islamique avec ${com.nomCompanionFr}`;
         // paraComp +=` Porteur de ${com.typeIdentification ==='CIN'? "Carte Nationale d'Identité":com.typeIdentification} de numéro ${com.Identification}, valable jusqu'à ${com.IdentificationValable}.<p>`;
-        return `<p>${para}</p>`;
+        return para;
 
         
     }
@@ -118,7 +118,7 @@ export class ActeService {
         const paraCom = `
         السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${new Date(com.dateNaissance).toLocaleDateString()}</span>،${com.situation !== "marie"?``:` المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>،`} والساكن ب<span>${com.AdresseAr}</span>، الحامل لبطاقة التعريف الوطنية رقم <span>${'\u202B'+com.Identification}</span> الممتدة صلاحيتها إلى . <span>${'\u202B'+com.IdentificationValable}</span>`
 
-        return `<p style="text-align:right;">${paraCom}</p>`;
+        return paraCom;
     }
 
     bienFr(bien){
@@ -131,16 +131,16 @@ export class ActeService {
         para = para.replace('detailSuperficie', bien.detailSuperficie);
         para = para.replace('libelle', bien.libelle);
 
-        return `<p>${para}</p>`
+        return para
     }
 
     bienAr(bien){
 
         const parabien = `
-        الملك المسمى "  ${bien.descriptionAr}  "، الكائن ب${bien.addressAr}، والمتكون من ${bien.detailSuperficie}، مساحتها ${bien.Superficie} المقيدة بالمحافظة العقارية ب${bien.villeAr}، موضوع الرسم العقاري رقم ${bien.libelle}، مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ.
+        الملك المسمى "  ${bien.descriptionAr}  "، الكائن ب${bien.addressAr}، والمتكون من ${bien.detailSuperficieAr}، مساحتها ${bien.Superficie} المقيدة بالمحافظة العقارية ب${bien.villeAr}، موضوع الرسم العقاري رقم ${bien.libelle}، مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ.
         `
 
-        return `<p style="text-align:right;"> ${parabien} </p>`
+        return parabien;
     }
 
 }

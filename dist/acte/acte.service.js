@@ -104,12 +104,12 @@ let ActeService = class ActeService {
         para = para.replace('Identification', com.Identification);
         para = para.replace('IdentificationValable', new Date(com.IdentificationValable).toUTCString().split(",")[1].split("00")[0]);
         para = para.replace('situation', com.situation === "marie" ? `Marié selon la loi islamique avec ${com.nomCompanionFr}` : '');
-        return `<p>${para}</p>`;
+        return para;
     }
     comparentAr(com) {
         const paraCom = `
         السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${new Date(com.dateNaissance).toLocaleDateString()}</span>،${com.situation !== "marie" ? `` : ` المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>،`} والساكن ب<span>${com.AdresseAr}</span>، الحامل لبطاقة التعريف الوطنية رقم <span>${'\u202B' + com.Identification}</span> الممتدة صلاحيتها إلى . <span>${'\u202B' + com.IdentificationValable}</span>`;
-        return `<p style="text-align:right;">${paraCom}</p>`;
+        return paraCom;
     }
     bienFr(bien) {
         const data = fs.readFileSync('assets/data.json', 'utf8');
@@ -119,13 +119,13 @@ let ActeService = class ActeService {
         para = para.replace('Superficie', bien.Superficie);
         para = para.replace('detailSuperficie', bien.detailSuperficie);
         para = para.replace('libelle', bien.libelle);
-        return `<p>${para}</p>`;
+        return para;
     }
     bienAr(bien) {
         const parabien = `
-        الملك المسمى "  ${bien.descriptionAr}  "، الكائن ب${bien.addressAr}، والمتكون من ${bien.detailSuperficie}، مساحتها ${bien.Superficie} المقيدة بالمحافظة العقارية ب${bien.villeAr}، موضوع الرسم العقاري رقم ${bien.libelle}، مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ.
+        الملك المسمى "  ${bien.descriptionAr}  "، الكائن ب${bien.addressAr}، والمتكون من ${bien.detailSuperficieAr}، مساحتها ${bien.Superficie} المقيدة بالمحافظة العقارية ب${bien.villeAr}، موضوع الرسم العقاري رقم ${bien.libelle}، مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ.
         `;
-        return `<p style="text-align:right;"> ${parabien} </p>`;
+        return parabien;
     }
 };
 ActeService = __decorate([
