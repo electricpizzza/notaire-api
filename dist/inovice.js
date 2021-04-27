@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Inovice = void 0;
 const hummus = require("hummus");
+var n2words = require('n2words');
+const moment = require("moment");
+moment.locale('fr');
 class Inovice {
     makeInovice(type, ref, articles, maitre, client, payment, jusqua, total) {
         const date = new Date();
@@ -127,7 +130,6 @@ class Inovice {
         const pdfWriter = hummus.createWriter(`./uploads/recu/recu-${today}.pdf`);
         const page = pdfWriter.createPage(0, 0, 595, 332);
         const cxt = pdfWriter.startPageContentContext(page);
-        cxt.drawImage(30, 230, './assets/logob.png', { transformation: { width: 100, height: 100 } });
         const tableTextOption = {
             font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
             size: 12,
@@ -135,10 +137,21 @@ class Inovice {
             color: 0x00,
             maxWidth: 300
         };
-        cxt.writeText('Reçu de    DINAR ZAKARIAE   ', 300, 250, tableTextOption)
-            .writeText('La somme de      ' + somme + '  DHs', 300, 200, tableTextOption)
+        const smallText = {
+            font: pdfWriter.getFontForFile('./assets/Roboto-Black.ttf'),
+            size: 6,
+            colorspace: 'gray',
+            color: 'darkblue',
+            maxWidth: 300
+        };
+        cxt.drawImage(57, 230, './assets/logob.png', { transformation: { width: 100, height: 100 } });
+        cxt.writeText('Avenue Des FAR, Résidence Espace 2000, N 36, 4ème étage - Fès', 20, 230, smallText)
+            .writeText('Tél : 05.35.62.43.13 - 06.73.36.72.72 / Fax : 05.35.62.43.14', 25, 220, smallText)
+            .writeText('E-mail : loumed-not@gmail.com', 57, 210, smallText);
+        cxt.writeText('Reçu de ' + client, 300, 250, tableTextOption)
+            .writeText('La somme de      ' + n2words(somme, { lang: 'fr' }) + ' dirhams', 300, 200, tableTextOption)
             .writeText('Pour    ' + libelle, 300, 150, tableTextOption)
-            .writeText('Fait à Fès, le      ' + (dateTrans === null ? new Date().toLocaleDateString() : dateTrans), 350, 50, tableTextOption);
+            .writeText('Fait à Fès, le ' + (dateTrans === null ? moment().format('llll') : moment(dateTrans).format('llll').replace("00:00", "")), 350, 50, tableTextOption);
         if (typePay === 'Cheque') {
             cxt.writeText('Réf. Folio N˚ à Rappeler', 20, 175, tableTextOption)
                 .writeText('Cheque N˚ :  ' + numCheque, 20, 150, tableTextOption);
@@ -147,8 +160,7 @@ class Inovice {
             cxt.writeText('Réf. Folio N˚ à Rappeler', 20, 175, tableTextOption)
                 .writeText('Mode de paiement :  ESPECE', 20, 150, tableTextOption);
         }
-        cxt
-            .writeText('Total :  ' + somme + 'DHs', 100, 25, tableTextOption);
+        cxt.writeText('Total :  ' + somme + ' Dirhams', 100, 25, tableTextOption);
         pdfWriter.writePage(page);
         pdfWriter.end();
         return `./uploads/recu/recu-${today}.pdf`;

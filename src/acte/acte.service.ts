@@ -6,6 +6,7 @@ import { Acte } from './acte.model';
 import { ModelEntity } from 'src/model/model.entity';
 import { BienEntity } from 'src/bien/bein.entity';
 import { ComparentEntity } from 'src/comparent/comparent.entity';
+import moment = require("moment");
 import * as fs from 'fs';
 
 
@@ -68,7 +69,7 @@ export class ActeService {
         });
         acte.contenu = JSON.stringify(acte.contenu);
         acte.fichier = document;
-       // throw new NotFoundException();
+        //throw new NotFoundException();
         return await this.acteRepository.insert(acte);
     }
 
@@ -88,6 +89,8 @@ export class ActeService {
 
 
     comparentFr(com){
+        moment.locale('fr');
+
         const data = fs.readFileSync('assets/data.json', 'utf8');
         let para = JSON.parse(data).actePhrases.comparentFr;
     
@@ -98,11 +101,11 @@ export class ActeService {
         para = para.replace('fonction', com.fonction);
         para = para.replace('nationalite', com.nationalite);
         para = para.replace('lieuxNaissance', com.lieuxNaissance);
-        para = para.replace('dateNaissance', new Date(com.dateNaissance).toUTCString().split(",")[1].split("00")[0]);
+        para = para.replace('dateNaissance', moment(com.dateNaissance).format('LLLL').replace("00:00",""));
         para = para.replace('Adresse', com.Adresse);
-        para = para.replace('typeIdentification', com.typeIdentification ==='CIN'? "Carte Nationale d'Identité":com.typeIdentification);
+        para = para.replace('typeIdentification', com.typeIdentification ==='CIN'? "Carte Nationale d'Identité ":com.typeIdentification);
         para = para.replace('Identification', com.Identification);
-        para = para.replace('IdentificationValable', new Date(com.IdentificationValable).toUTCString().split(",")[1].split("00")[0]);
+        para = para.replace('IdentificationValable', moment(com.IdentificationValable).format('LLLL').replace("00:00",""));
         para = para.replace('situation', com.situation === "marie"? `Marié selon la loi islamique avec ${com.nomCompanionFr}`:'');
 
         // let paraComp = `<p>Mr. ${com.nomFr} ${com.nomFr} fils de ${com.nomPereFr} et ${com.nomMereFr}, ${com.fonction}, de nationalité ${com.nationalite}, Né à ${com.lieuxNaissance} le ${com.dateNaissance},Habit a ${com.Adresse} ,`;
@@ -114,9 +117,9 @@ export class ActeService {
         
     }
     comparentAr(com){
-
+        moment.locale('ar-ma');
         const paraCom = `
-        السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${new Date(com.dateNaissance).toLocaleDateString()}</span>،${com.situation !== "marie"?``:` المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>،`} والساكن ب<span>${com.AdresseAr}</span>، الحامل لبطاقة التعريف الوطنية رقم <span>${'\u202B'+com.Identification}</span> الممتدة صلاحيتها إلى . <span>${'\u202B'+com.IdentificationValable}</span>`
+        السيد <span> ${com.prenomAr} ${com.nomAr}</span>، من والديه <span>${com.nomPereAr}</span> و <span>${com.nomMereAr}</span>،  <span>${com.nationaliteAr}</span> الجنسية ، <span>${com.fonctionAr}</span>، المزداد <span>${com.lieuxNaissanceAr}</span>، بتاريخ <span>${moment(com.dateNaissance).format('LLLL').replace("00:00","")}</span>،${com.situation !== "marie"?``:` المتزوج طبقا للشريعة الإسلامية ودون اتفاق مبرم في إطار المادة 49 من قانون مدونة الأسرة بالسيدة <span>${com.nomCompanionAr}</span>،`} والساكن ب<span>${com.AdresseAr}</span>، الحامل لبطاقة التعريف الوطنية رقم <span>${'\u202B'+com.Identification}</span> الممتدة صلاحيتها إلى . <span>${'\u202B'+moment(com.IdentificationValable).format('LLLL').replace("00:00","")}</span>`
 
         return paraCom;
     }

@@ -67,7 +67,7 @@ export class ArchiveController {
             destination: './uploads/',
             filename: (req, file, cb) => {
                 const uniqueSuffix = file.originalname.split('.')[file.originalname.split.length - 1]
-                cb(null, file.originalname + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
+                cb(null, file.originalname.split('.')[0] + '-' + (new Date().toISOString()) + '.' + uniqueSuffix)
             }
         })
     }))
