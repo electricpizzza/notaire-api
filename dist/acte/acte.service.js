@@ -22,6 +22,7 @@ const bein_entity_1 = require("../bien/bein.entity");
 const comparent_entity_1 = require("../comparent/comparent.entity");
 const moment = require("moment");
 const fs = require("fs");
+var n2words = require('n2words');
 let ActeService = class ActeService {
     constructor(acteRepository, modelRepository, bienRepository, comparentRepository) {
         this.acteRepository = acteRepository;
@@ -128,7 +129,9 @@ let ActeService = class ActeService {
         const parabien = `
         الملك المسمى "  ${bien.descriptionAr}  "، الكائن ب${bien.addressAr}، والمتكون من ${bien.detailSuperficieAr}، مساحتها ${bien.Superficie} المقيدة بالمحافظة العقارية ب${bien.villeAr}، موضوع الرسم العقاري رقم ${bien.libelle}، مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ.
         `;
-        return parabien;
+        const ext = `مجموع الملك المسمى " ${bien.descriptionAr} " الكاىن ب${bien.addressAr}، موضوع موضوع الرسم العقاري رقم ${bien.libelle} ،المشتمل على :   <br> <b style="text-decoration: underline">القسمة المفرزة</b> : <br>
+        شقة متكونة من الجزء المفرز, مساحتها <b>${n2words(Number(bien.Superficie), { lang: 'ar' })} متر مربع ( ${bien.Superficie} م²) <b>"، الكائن ب ${bien.addressAr} والمتكون من ${bien.detailSuperficieAr} ب${bien.addressAr} المقيدة بالمحافظة العقارية ${bien.villeAr} ،  مع كل ما تضم من جميع المنافع والمرافق دون استثناء و لا تحفظ. <br> <b style="text-decoration: underline">الأجزاء المشتركة</b>: <br> (مليمات ) غير شائعة للأجزاء المشتركة للعقار الأصلي موضوع الرسم العقاري رقم ${bien.libelle} ،`;
+        return ext;
     }
 };
 ActeService = __decorate([
