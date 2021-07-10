@@ -32,7 +32,10 @@ import { AveuModule } from './aveu/aveu.module';
       "database": process.env.DB_DATABASE,
       "entities": ["dist/**/*.entity{.ts,.js}"],
       "logging": true,
-      "synchronize": false
+      "synchronize": false,
+      extra: {
+        ssl: true
+      }
     }),
     ComparentModule,
     ActeModule,
