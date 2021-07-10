@@ -34,7 +34,9 @@ import { AveuModule } from './aveu/aveu.module';
       "logging": true,
       "synchronize": false,
       extra: {
-        ssl: true
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }
     }),
     ComparentModule,
